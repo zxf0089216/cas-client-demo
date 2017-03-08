@@ -18,6 +18,7 @@
  */
 package org.jasig.cas;
 
+import org.jasig.cas.authentication.handler.PasswordEncoder;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.core.io.FileSystemResource;
@@ -61,5 +62,10 @@ public class WiringTests {
     @Test
     public void testWiring() throws Exception {
         assertTrue(applicationContext.getBeanDefinitionCount() > 0);
+
+        PasswordEncoder md5PasswordEncoder = (PasswordEncoder) applicationContext.getBean("MD5PasswordEncoder");
+        String password = "123456";
+        String passwordEncoded = md5PasswordEncoder.encode(password);
+        System.out.println("passwordEncoded:\n"+passwordEncoded);
     }
 }
