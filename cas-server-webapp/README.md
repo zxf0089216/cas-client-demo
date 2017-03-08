@@ -12,6 +12,8 @@ keytool -importcert -alias cas-server -file cas-server.crt -keystore "C:\Program
 查看 keypair：
 keytool -list -storepass changeit -keystore server.keystore
 
+keytool -list -storepass changeit -keystore "%JAVA_HOME%\jre\lib\security\cacerts"
+
 删除 keypair：
 keytool -delete -alias cas-server -storepass changeit
 

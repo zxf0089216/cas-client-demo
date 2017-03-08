@@ -16,7 +16,7 @@
 			<!-- #### change with your own CAS server and your host name #### -->
 			<%--<li><a href="https://hundsun:8443/logout?service=http://cas-client:8080">Call the CAS logout</a></li>--%>
 			<%--<li><a href="https://acm:8443/logout?service=http://cas-client:8080/logout.jsp">Call the CAS logout</a></li>--%>
-			<li><a href="https://acm:8443/logout?service=https://acm:8443/login">Call the CAS logout</a></li>
+			<li><a href="https://cas-server:8443/logout?service=https://cas-server:8443/login">Call the CAS logout</a></li>
 			<h3>
 				<% AttributePrincipalImpl user = (AttributePrincipalImpl) request.getUserPrincipal();if (user != null) { %><br>
 				<p>User: <%=user.getName()%></p>

@@ -17,7 +17,7 @@
 			<%--<li><a href="http://localhost:8888/cas/logout?service=http://localhost:8080">Call the CAS logout</a></li>--%>
 			<%--<li><a href="https://hundsun:8443/logout?service=http://cas-client:8080">Call the CAS logout</a></li>--%>
 			<%--<li><a href="https://acm:8443/logout?service=http://cas-client:8080/logout.jsp">Call the CAS logout</a></li>--%>
-			<li><a href="https://acm:8443/logout?service=https://acm:8443/login">Call the CAS logout</a></li>
+			<li><a href="https://cas-server:8443/logout?service=https://cas-server:8443/login">Call the CAS logout</a></li>
 		</ul>
 		<%--<h3>You are on the /protected/index.jsp page</h3>--%>
 		<h3>
