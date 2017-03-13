@@ -125,9 +125,14 @@
                     | local authentication strategy.  You might accomplish this by coding a new such handler and declaring
                     | edu.someschool.its.cas.MySpecialHandler here, or you might use one of the handlers provided in the adaptors modules.
                     +-->
+                <!-- 原有的简单认证 -->
                 <!--<bean class="org.jasig.cas.authentication.handler.support.SimpleTestUsernamePasswordAuthenticationHandler" />-->
 
                 <!-- mine start -->
+                <bean class="com.hundsun.arescloud.see.cas.AcmAuthenticationHandler">
+                    <property name="dataSource" ref="dataSource"></property>
+                </bean>
+
                 <bean class="org.jasig.cas.adaptors.jdbc.QueryDatabaseAuthenticationHandler">
                     <property name="dataSource" ref="dataSource"></property>
                     <property name="sql" value="select password from t_admin_user where login_name=?"></property>
