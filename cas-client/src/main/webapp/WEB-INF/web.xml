@@ -104,5 +104,13 @@
 		<servlet-name>ServletDemo1</servlet-name>
 		<url-pattern>/servlet/ServletDemo1</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>OAuthServlet</servlet-name>
+		<servlet-class>com.hundsun.cas.OAuthServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OAuthServlet</servlet-name>
+		<url-pattern>/servlet/OAuthServlet</url-pattern>
+	</servlet-mapping>
 
 </web-app>

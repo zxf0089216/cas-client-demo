@@ -221,6 +221,21 @@
                         </list>
                     </property>
                 </bean>
+
+                <bean class="org.jasig.cas.services.RegisteredServiceImpl">
+                    <property name="id" value="1" />
+                    <property name="name" value="HTTP" />
+                    <property name="description" value="oauth wrapper callback url" />
+                    <property name="serviceId" value="${server.prefix}/oauth2.0/callbackAuthorize" />
+                </bean>
+                <bean class="org.jasig.cas.services.RegisteredServiceImpl">
+                    <property name="id" value="2" />
+                    <property name="name" value="key" />
+                    <property name="description" value="secret" />
+                    <property name="serviceId" value="http://cas-client:8080/servlet/OAuthServlet" />
+                    <property name="theme" value="test1" />
+                </bean>
+
                 <!--
                 Use the following definition instead of the above to further restrict access
                 to services within your domain (including subdomains).

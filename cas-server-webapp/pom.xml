@@ -56,6 +56,11 @@
       <!-- ################# mine start#######################-->
       <dependency>
           <groupId>org.jasig.cas</groupId>
+          <artifactId>cas-server-support-oauth</artifactId>
+          <version>3.5.3</version>
+      </dependency>
+      <dependency>
+          <groupId>org.jasig.cas</groupId>
           <artifactId>cas-server-support-jdbc</artifactId>
           <version>3.5.3</version>
       </dependency>

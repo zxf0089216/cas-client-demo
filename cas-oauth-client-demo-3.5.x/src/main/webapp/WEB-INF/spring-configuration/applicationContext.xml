@@ -63,7 +63,8 @@
     <bean id="caswrapper1" class="org.jasig.cas.support.oauth.provider.impl.CasWrapperProvider20">
         <property name="key" value="this_is_the_key" />
         <property name="secret" value="this_is_the_secret" />
-        <property name="serverUrl" value="http://localhost:8080/cas2/oauth2.0" />
+        <!--<property name="serverUrl" value="http://localhost:8080/cas2/oauth2.0" />-->
+        <property name="serverUrl" value="http://localhost:8081/cas2/oauth2.0" />
     </bean>
 
     <bean id="wordpress1" class="org.scribe.up.provider.impl.WordPressProvider">
