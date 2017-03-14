@@ -58,8 +58,8 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>2.5.1</version>
 					<configuration>
-						<source>1.6</source>
-						<target>1.6</target>
+						<source>1.7</source>
+						<target>1.7</target>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -77,10 +77,10 @@
 	<modules>
 		<module>cas-oauth-client-demo-3.5.x</module>
 		<module>cas-oauth-server-demo-3.5.x</module>
-		<module>cas-server-webapp</module>
-		<module>java-jasig-cas-client-demo</module>
 		<module>cas-server-support-jdbc</module>
-		<module>cas-client-webapp</module>
+		<module>cas-server-webapp</module>
+		<module>cas-client</module>
+		<module>cas-client1</module>
 	</modules>
 
 	<properties>

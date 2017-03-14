@@ -15,7 +15,8 @@
 			<li class="active"><a href="/protected/index.jsp">You are on the /protected/index.jsp page</a></li>
 			<!-- #### change with your own CAS server and your host name #### -->
 			<%--<li><a href="http://cas-server:8488/logout?service=http://cas-server:8488/login">Call the CAS logout</a></li>--%>
-			<li><a href="http://cas-server:8488/cas/logout?service=http://cas-client:8080/index.jsp">Call the CAS logout</a></li>
+			<%--<li><a href="http://cas-server:8488/cas/logout?service=http://cas-client:8080/index.jsp">Call the CAS logout</a></li>--%>
+			<li><a href="/servlet/ServletDemo1">Call the CAS logout</a></li>
 		</ul>
 		<%--<h3>You are on the /protected/index.jsp page</h3>--%>
 		<h3>
