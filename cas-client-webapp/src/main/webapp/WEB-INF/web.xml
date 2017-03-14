@@ -19,7 +19,7 @@
 		</init-param>
 		<init-param>
 			<param-name>serverName</param-name>
-			<param-value>http://cas-client:8080</param-value>
+			<param-value>http://cas-client1:9080</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>
@@ -36,17 +36,17 @@
 		</init-param>
 		<init-param>
 			<param-name>serverName</param-name>
-			<param-value>http://cas-client:8080</param-value>
+			<param-value>http://cas-client1:9080</param-value>
 		</init-param>
 		<!-- 解决参数中文乱码问题 -->
 		<init-param>
 			<param-name>encoding</param-name>
 			<param-value>UTF-8</param-value>
 		</init-param>
-		<init-param>
-			<param-name>useSession</param-name>
-			<param-value>true</param-value>
-		</init-param>
+		<!--<init-param>-->
+			<!--<param-name>useSession</param-name>-->
+			<!--<param-value>true</param-value>-->
+		<!--</init-param>-->
 		<init-param>
 			<param-name>redirectAfterValidation</param-name>
 			<param-value>true</param-value>
@@ -66,7 +66,7 @@
 		</init-param>
 		<init-param>
 			<param-name>serverName</param-name>
-			<param-value>http://cas-client:8080</param-value>
+			<param-value>http://cas-client1:9080</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>

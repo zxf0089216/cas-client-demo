@@ -80,6 +80,7 @@
 		<module>cas-server-webapp</module>
 		<module>java-jasig-cas-client-demo</module>
 		<module>cas-server-support-jdbc</module>
+		<module>cas-client-webapp</module>
 	</modules>
 
 	<properties>
