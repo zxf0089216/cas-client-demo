@@ -1,10 +1,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.leleuj.demo</groupId>
-	<artifactId>cas-client</artifactId>
+	<groupId>com.hundsun</groupId>
+	<artifactId>cas-simple-client-test</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
+
+	<properties>
+		<junit.version>4.11</junit.version>
+		<slf4j.version>1.7.7</slf4j.version>
+		<logback.version>1.1.3</logback.version>
+		<servlet.version>3.0.1</servlet.version>
+		<cas.version>3.2.1</cas.version>
+	</properties>
 
 	<repositories>
 		<repository>
@@ -28,33 +37,22 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.jasig.cas.client</groupId>
-			<artifactId>cas-client-core</artifactId>
-			<version>3.2.1</version>
-			<exclusions>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.1.2</version>
+			<groupId>com.hundsun</groupId>
+			<artifactId>cas-simple-client</artifactId>
+			<version>1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
-			<version>1.7.1</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>slf4j-api</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-			</exclusions>
+			<artifactId>log4j-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
 		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>log4j</groupId>-->
+			<!--<artifactId>log4j</artifactId>-->
+			<!--<version>1.2.17</version>-->
+		<!--</dependency>-->
 	</dependencies>
+
 	<build>
 		<finalName>${project.artifactId}</finalName>
 		<plugins>
@@ -68,16 +66,7 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.eclipse.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>9.2.2.v20140723</version>
-				<configuration>
-					<webApp>
-						<contextPath>/</contextPath>
-					</webApp>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
+
 </project>

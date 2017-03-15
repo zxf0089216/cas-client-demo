@@ -19,12 +19,12 @@
 		</init-param>
 		<init-param>
 			<param-name>serverName</param-name>
-			<param-value>http://cas-client:8080</param-value>
+			<param-value>http://cas-client1:9080</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>
 		<filter-name>CAS Single Sign Out Filter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>*</url-pattern>
 	</filter-mapping>
 
 	<filter>
@@ -36,17 +36,17 @@
 		</init-param>
 		<init-param>
 			<param-name>serverName</param-name>
-			<param-value>http://cas-client:8080</param-value>
+			<param-value>http://cas-client1:9080</param-value>
 		</init-param>
 		<!-- 解决参数中文乱码问题 -->
 		<init-param>
 			<param-name>encoding</param-name>
 			<param-value>UTF-8</param-value>
 		</init-param>
-		<init-param>
-			<param-name>useSession</param-name>
-			<param-value>true</param-value>
-		</init-param>
+		<!--<init-param>-->
+			<!--<param-name>useSession</param-name>-->
+			<!--<param-value>true</param-value>-->
+		<!--</init-param>-->
 		<init-param>
 			<param-name>redirectAfterValidation</param-name>
 			<param-value>true</param-value>
@@ -54,7 +54,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>CAS Validation Filter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>*</url-pattern>
 	</filter-mapping>
 
 	<filter>
@@ -66,12 +66,12 @@
 		</init-param>
 		<init-param>
 			<param-name>serverName</param-name>
-			<param-value>http://cas-client:8080</param-value>
+			<param-value>http://cas-client1:9080</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>
 		<filter-name>CAS Filter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>*</url-pattern>
 	</filter-mapping>
 
 	<filter>
@@ -80,7 +80,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>*</url-pattern>
 	</filter-mapping>
 
 	<!--
@@ -103,14 +103,6 @@
 	<servlet-mapping>
 		<servlet-name>ServletDemo1</servlet-name>
 		<url-pattern>/servlet/ServletDemo1</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>OAuthServlet</servlet-name>
-		<servlet-class>com.hundsun.cas.OAuthServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>OAuthServlet</servlet-name>
-		<url-pattern>/servlet/OAuthServlet</url-pattern>
 	</servlet-mapping>
 
 </web-app>
