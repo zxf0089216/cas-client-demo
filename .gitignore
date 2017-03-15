@@ -20,5 +20,5 @@ test-output/
 .buildpath
 .springBeans
 *.iml
-.idea
+.idea/
 *.log
