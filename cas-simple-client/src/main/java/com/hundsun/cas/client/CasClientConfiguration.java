@@ -126,7 +126,7 @@ public class CasClientConfiguration {
 
     private static class CasConfig {
         public Boolean isEnbale = true;
-        public String appUrl = "http://cas-client2:8083";
+        public String appUrl = "http://cas-client:8080";
         public String serverUrl = "http://cas-server:8488/cas";
         public String filterMapping = "/*";
         public String filterEncoding = "UTF-8";
