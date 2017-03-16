@@ -21,8 +21,11 @@
 		<%--<h3>You are on the /protected/index.jsp page</h3>--%>
 		<h3>
 			<% AttributePrincipalImpl user = (AttributePrincipalImpl) request.getUserPrincipal();%>
-			<p>User: <%=user.getName()%></p>
-			<p>Attributes: <%=user.getAttributes()%></p>
+			<% if(user!=null){%>
+				<p>User: <%=user.getName()%></p>
+				<p>Attributes: <%=user.getAttributes()%></p>
+			<%} %>
+
 		</h3>
 	</div>
 </body>

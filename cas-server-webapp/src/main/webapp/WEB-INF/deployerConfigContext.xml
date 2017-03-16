@@ -176,7 +176,7 @@
     <bean id="attributeRepository" class="org.jasig.services.persondir.support.jdbc.SingleRowJdbcPersonAttributeDao">
         <constructor-arg index="0" ref="dataSource" />
         <constructor-arg index="1" >
-                <value>select id,login_name,real_name,email from tb_user where {0}</value>
+                <value>select id,login_name,role_id,env_id,real_name,email from tb_user where {0}</value>
         </constructor-arg>
         <!-- queryAttributeMapping 是组装sql用的查询条件属性，上述配置后，结合封装成查询sql就是 select * from userinfo where loginname=#username# -->
         <property name="queryAttributeMapping">
@@ -192,6 +192,8 @@
                 <entry key="email" value="email"/>
                 <entry key="login_name" value="loginName"/>
                 <entry key="real_name" value="realName"/>
+                <entry key="role_id" value="roleId"/>
+                <entry key="env_id" value="envId"/>
             </map>
         </property>
     </bean>
@@ -218,6 +220,8 @@
                             <value>id</value>
                             <value>loginName</value>
                             <value>realName</value>
+                            <value>roleId</value>
+                            <value>envId</value>
                         </list>
                     </property>
                 </bean>

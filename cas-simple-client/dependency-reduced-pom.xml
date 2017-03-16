@@ -21,7 +21,7 @@
         <directory>src/main/resources/${package.environment}</directory>
       </resource>
     </resources>
-    <finalName>cas-simple-client</finalName>
+    <finalName>cas-simple-client-${version}</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>

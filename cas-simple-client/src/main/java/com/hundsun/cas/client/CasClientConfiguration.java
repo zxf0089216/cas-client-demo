@@ -82,6 +82,14 @@ public class CasClientConfiguration {
             config.filterEncoding = encodingValue;
             logger.debug("Property [cas.filter_encoding] loaded , value is [{}]",config.filterEncoding);
         }
+
+        String filterExcludesValue = props.getProperty("cas.filter_exclusions");
+        if (isEmpty(filterExcludesValue)){
+            logger.debug("Property [cas.filter_exclusions] not found.  Dont use filterExcludes");
+        }else {
+            config.filterExclusions = filterExcludesValue;
+            logger.debug("Property [cas.filter_exclusions] loaded , value is [{}]",filterExcludesValue);
+        }
     }
 
     public static boolean isEnable() {
@@ -108,6 +116,10 @@ public class CasClientConfiguration {
         return config.filterEncoding;
     }
 
+    public static String getFilterExclusions() {
+        return config.filterExclusions;
+    }
+
     private static Boolean isEmpty(String prop) {
         return prop == null || "".trim().equals(prop);
     }
@@ -118,6 +130,7 @@ public class CasClientConfiguration {
         public String serverUrl = "http://cas-server:8488/cas";
         public String filterMapping = "/*";
         public String filterEncoding = "UTF-8";
+        public String filterExclusions = "";
 
         @Override
         public String toString() {

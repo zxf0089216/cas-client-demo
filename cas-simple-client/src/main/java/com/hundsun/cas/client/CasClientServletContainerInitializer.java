@@ -5,6 +5,7 @@ import javax.servlet.ServletContainerInitializer;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.HandlesTypes;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,13 +16,18 @@ public class CasClientServletContainerInitializer implements ServletContainerIni
 
     @Override
     public void onStartup(Set<Class<?>> webApplicationInitializerClassSet, ServletContext servletContext) throws ServletException {
-        try {
-            for (Class<?> webApplicationInitializerClass : webApplicationInitializerClassSet) {
+        if (webApplicationInitializerClassSet == null || webApplicationInitializerClassSet.size() == 0) {
+            return;
+        }
+
+        for (Class<?> webApplicationInitializerClass : webApplicationInitializerClassSet) {
+            try {
                 CasClientInitializer casClientInitializer = (CasClientInitializer) webApplicationInitializerClass.newInstance();
                 casClientInitializer.init(servletContext);
+            } catch (Exception e) {
+                logger.error("initialize CasClientServletContainerInitializer error for [{}] !", webApplicationInitializerClass, e);
             }
-        } catch (Exception e) {
-            logger.error("初始化出错！", e);
         }
+
     }
 }
