@@ -104,6 +104,10 @@ public class CasClientConfiguration {
         return getCasServerUrlPrefix() + "/login";
     }
 
+    public static String getCasLogoutUrl() {
+        return CasClientConfiguration.getCasServerUrlPrefix()+"/logout?service="+CasClientConfiguration.getCasServerLoginUrl();
+    }
+
     public static String getServerName() {
         return config.appUrl;
     }
