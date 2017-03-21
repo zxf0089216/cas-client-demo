@@ -38,6 +38,13 @@
 			<param-name>serverName</param-name>
 			<param-value>http://cas-client1:9080</param-value>
 		</init-param>
+
+		<!-- 允许其它应用代理它 -->
+		<init-param>
+			<param-name>acceptAnyProxy</param-name>
+			<param-value>true</param-value>
+		</init-param>
+
 		<!-- 解决参数中文乱码问题 -->
 		<init-param>
 			<param-name>encoding</param-name>

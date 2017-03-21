@@ -37,6 +37,18 @@
 			<param-name>serverName</param-name>
 			<param-value>http://cas-client:8080</param-value>
 		</init-param>
+
+		<!-- 配置代理其他客户端 start -->
+		<init-param>
+			<param-name>proxyCallbackUrl</param-name>
+			<param-value>http://cas-client:8080/proxyCallback</param-value>
+		</init-param>
+		<init-param>
+			<param-name>proxyReceptorUrl</param-name>
+			<param-value>/proxyCallback</param-value>
+		</init-param>
+		<!-- 配置代理其他客户端 end -->
+
 		<init-param>
 			<param-name>encoding</param-name>
 			<param-value>UTF-8</param-value>
@@ -50,10 +62,17 @@
 			<param-value>true</param-value>
 		</init-param>
 	</filter>
+	<!-- /proxyCallback这个filter-mapping一定要配在其它mapping之前 -->
+	<filter-mapping>
+		<filter-name>CAS Validation Filter</filter-name>
+		<url-pattern>/proxyCallback</url-pattern>
+	</filter-mapping>
 	<filter-mapping>
 		<filter-name>CAS Validation Filter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+
+
 
 	<filter>
 		<filter-name>CAS Filter</filter-name>
