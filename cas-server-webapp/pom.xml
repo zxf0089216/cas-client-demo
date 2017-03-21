@@ -18,6 +18,7 @@
       <scope>test</scope>
       <type>jar</type>
     </dependency>
+
     <dependency>
       <groupId>com.github.inspektr</groupId>
       <artifactId>inspektr-support-spring</artifactId>

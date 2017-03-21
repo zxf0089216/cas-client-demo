@@ -53,7 +53,7 @@ public class CasClientConfiguration {
 
         String serverUrlValue = props.getProperty("cas.server_url");
         if (isEmpty(serverUrlValue)){
-            logger.debug("Property [cas.server_url] not found.  Using default value [{}]",serverUrlValue);
+            logger.debug("Property [cas.server_url] not found.  Using default value [{}]",config.serverUrl);
         }else {
             config.serverUrl = serverUrlValue;
             logger.debug("Property [cas.server_url] loaded , value is [{}]",config.serverUrl);
@@ -61,7 +61,7 @@ public class CasClientConfiguration {
 
         String appUrlValue = props.getProperty("cas.app_url");
         if (isEmpty(appUrlValue)){
-            logger.debug("Property [cas.app_url] not found.  Using default value [{}]",appUrlValue);
+            logger.debug("Property [cas.app_url] not found.  Using default value [{}]",config.appUrl);
         }else {
             config.appUrl = appUrlValue;
             logger.debug("Property [cas.app_url] loaded , value is [{}]",config.appUrl);
@@ -69,7 +69,7 @@ public class CasClientConfiguration {
 
         String filterMappingValue = props.getProperty("cas.filter_mapping");
         if (isEmpty(filterMappingValue)){
-            logger.debug("Property [cas.filter_mapping] not found.  Using default value [{}]",filterMappingValue);
+            logger.debug("Property [cas.filter_mapping] not found.  Using default value [{}]",config.filterMapping);
         }else {
             config.filterMapping = filterMappingValue;
             logger.debug("Property [cas.filter_mapping] loaded , value is [{}]",config.filterMapping);
@@ -77,7 +77,7 @@ public class CasClientConfiguration {
 
         String encodingValue = props.getProperty("cas.filter_encoding");
         if (isEmpty(encodingValue)){
-            logger.debug("Property [cas.filter_encoding] not found.  Using default value [{}]",encodingValue);
+            logger.debug("Property [cas.filter_encoding] not found.  Using default value [{}]",config.filterEncoding);
         }else {
             config.filterEncoding = encodingValue;
             logger.debug("Property [cas.filter_encoding] loaded , value is [{}]",config.filterEncoding);
