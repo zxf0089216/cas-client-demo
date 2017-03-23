@@ -1,0 +1,38 @@
+/*
+
+::  1.0 Page Setting
+-------------------------------------------
+    1.0 Login Page
+
+::  2.0 Custom Setting
+-------------------------------------------
+    2.0 Custom
+
+
+/* -------------------------------
+   1.0 Page Setting
+------------------------------- */
+
+/* 1.0 Login Page */
+.login {
+    margin: -168px 0 0 -220px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 440px;
+    padding: 20px;
+    border: 1px solid #eee;
+}
+.login legend{
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 0;
+    margin-left: 28%;
+    margin-bottom: 10px;
+}
+
+/* -------------------------------
+   2.0 Custom Setting
+------------------------------- */
+
+/* 2.0 Custom */
