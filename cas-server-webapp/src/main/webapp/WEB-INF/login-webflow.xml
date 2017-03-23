@@ -28,6 +28,27 @@
     <on-start>
         <evaluate expression="initialFlowSetupAction" />
     </on-start>
+	<!--########################### provideLoginTicket start###########################-->
+	<!--<action-state id="provideLoginTicket">-->
+		<!--<evaluate expression="provideLoginTicketAction"/>-->
+		<!--<transition on="loginTicketRequested" to ="viewResponseLoginTicketInfo" />-->
+		<!--<transition on="continue" to="ticketGrantingTicketExistsCheck" />-->
+	<!--</action-state>-->
+
+	<!--<view-state id="viewResponseLoginTicketInfo" view="responseLoginTicketInfoView" model="credentials">-->
+		<!--<binder>-->
+			<!--<binding property="username" />-->
+			<!--<binding property="password" />-->
+		<!--</binder>-->
+		<!--<on-entry>-->
+			<!--<set name="viewScope.commandName" value="'credentials'" />-->
+		<!--</on-entry>-->
+		<!--<transition on="submit" bind="true" validate="true" to="realSubmit">-->
+			<!--<evaluate expression="authenticationViaFormAction.doBind(flowRequestContext, flowScope.credentials)" />-->
+		<!--</transition>-->
+	<!--</view-state>-->
+	<!--########################### provideLoginTicket end###########################-->
+
 
 	<decision-state id="ticketGrantingTicketExistsCheck">
 		<if test="flowScope.ticketGrantingTicketId != null" then="hasServiceCheck" else="gatewayRequestCheck" />
@@ -122,6 +143,9 @@
             <binding property="password" />
         </binder>
         <on-entry>
+			<!-- zxf add start -->
+			<!--<set name="requestScope.messages" value="messageContext.allMessages" />-->
+			<!-- zxf add end -->
             <set name="viewScope.commandName" value="'credentials'" />
         </on-entry>
 		<transition on="submit" bind="true" validate="true" to="realSubmit">
@@ -145,6 +169,9 @@
 	    -->
 		<transition on="success" to="sendTicketGrantingTicket" />
 		<transition on="error" to="generateLoginTicket" />
+		<!--将 to="viewLoginForm" 修改为 to="loginResponse" -->
+		<!--<transition on="error" to="loginResponse" />-->
+
 		<transition on="accountDisabled" to="casAccountDisabledView" />
 	    <transition on="mustChangePassword" to="casMustChangePassView" />
 	    <transition on="accountLocked" to="casAccountLockedView" />
@@ -164,12 +191,31 @@
 	
 	<action-state id="generateServiceTicket">
         <evaluate expression="generateServiceTicketAction" />
+
+		<!-- ######################zxf mine begin##########################-->
+		<!--<transition on="success" to="loginResponse" />-->
+		<!--<transition on="error" to="loginResponse" />-->
+		<!--<transition on="gateway" to="gatewayServicesManagementCheck" />-->
+		<!-- ######################zxf mine end##########################-->
+
+		<!-- ######################zxf origin begin##########################-->
 		<transition on="success" to ="warn" />
 		<transition on="error" to="generateLoginTicket" />
 		<transition on="gateway" to="gatewayServicesManagementCheck" />
+		<!-- ######################zxf origin end##########################-->
+
 	</action-state>
 
-    <action-state id="gatewayServicesManagementCheck">
+	<!-- ######################zxf mine begin##########################-->
+	<!--<action-state id="loginResponse">-->
+		<!--<evaluate expression="ajaxLoginServiceTicketAction" />-->
+		<!--<transition on="success" to="warn" />-->
+		<!--<transition on="error" to="generateLoginTicket" />-->
+		<!--<transition on="local" to="casAjaxLoginView" />-->
+	<!--</action-state>-->
+	<!-- ######################zxf mine end##########################-->
+
+	<action-state id="gatewayServicesManagementCheck">
         <evaluate expression="gatewayServicesManagementCheck" />
         <transition on="success" to="redirect" />
     </action-state>
@@ -182,6 +228,10 @@
     <decision-state id="postRedirectDecision">
         <if test="requestScope.response.responseType.name() == 'POST'" then="postView" else="redirectView" />
     </decision-state>
+
+	<!-- ######################zxf mine begin##########################-->
+	<!--<end-state id="casAjaxLoginView" view="casAjaxLoginView" />-->
+	<!-- ######################zxf mine end##########################-->
 
 	<!-- 
 		the "viewGenericLogin" is the end state for when a user attempts to login without coming directly from a service.

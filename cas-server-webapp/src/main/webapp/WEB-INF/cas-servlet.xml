@@ -259,4 +259,9 @@
 
   <bean id="credentialsValidator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"
         p:messageInterpolator-ref="messageInterpolator"/>
+  <!--######################zxf start#########################-->
+  <!--<bean id="ajaxLoginServiceTicketAction" class="org.jasig.cas.web.AjaxLoginServiceTicketAction"/>-->
+  <!--<bean id="provideLoginTicketAction" class="org.jasig.cas.web.ProvideLoginTicketAction"-->
+        <!--p:ticketIdGenerator-ref="loginTicketUniqueIdGenerator" />-->
+  <!--######################zxf end#########################-->
 </beans>
