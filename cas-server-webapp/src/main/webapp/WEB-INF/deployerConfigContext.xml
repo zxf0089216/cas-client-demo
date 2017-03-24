@@ -262,24 +262,24 @@
 
     <!--############################ mine start ##############################-->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName">
-            <value>com.mysql.jdbc.Driver</value>
+         <property name="driverClassName">
+            <value>${jdbc.driver}</value>
         </property>
         <property name="url">
-            <value>jdbc:mysql:///wsriademo</value>
+            <value>${jdbc.url}</value>
         </property>
         <property name="username">
-            <value>root</value>
+            <value>${jdbc.username}</value>
         </property>
         <property name="password">
-            <value>1234</value>
+            <value>${jdbc.password}</value>
         </property>
     </bean>
 
-    <bean id="MD5PasswordEncoder" class="org.jasig.cas.authentication.handler.DefaultPasswordEncoder">
-        <constructor-arg index="0">
-            <value>MD5</value>
-        </constructor-arg>
-    </bean>
+    <!--<bean id="MD5PasswordEncoder" class="org.jasig.cas.authentication.handler.DefaultPasswordEncoder">-->
+        <!--<constructor-arg index="0">-->
+            <!--<value>MD5</value>-->
+        <!--</constructor-arg>-->
+    <!--</bean>-->
     <!--############################ mine end ##############################-->
 </beans>
