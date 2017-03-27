@@ -100,9 +100,9 @@
                     <exclude>product/*</exclude>
                 </excludes>
             </resource>
-            <resource>
-                <directory>src/main/resources/${package.environment}</directory>
-            </resource>
+            <!--<resource>-->
+                <!--<directory>src/main/resources/${package.environment}</directory>-->
+            <!--</resource>-->
         </resources>
         <plugins>
             <plugin>

@@ -17,9 +17,6 @@
           <exclude>product/*</exclude>
         </excludes>
       </resource>
-      <resource>
-        <directory>src/main/resources/${package.environment}</directory>
-      </resource>
     </resources>
     <finalName>cas-simple-client-${version}</finalName>
     <plugins>
