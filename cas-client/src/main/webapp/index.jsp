@@ -13,7 +13,7 @@
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="/index.jsp">You are on the /index.jsp page</a></li>
 			<li><a href="/protected/index.jsp">Call the /protected/index.jsp page</a></li>
-			<li><a href="/servlet/ServletDemo1">Call the CAS logout</a></li>
+			<li><a href="${pageContext.request.contextPath}/servlet/ServletDemo1">Call the CAS logout</a></li>
 			<%--<li><a href="http://cas-server:8488/cas/logout?service=http://cas-server:8488/cas/login?service=http%3A%2F%2Fcas-client%3A8080%2F">Call the CAS logout</a></li>--%>
 			<%--<li><a href="http://cas-server:8488/cas/logout?service=http://cas-server:8488/cas/login?service=http%3A%2F%2Fcas-client%3A8080%2F">Call the CAS logout</a></li>--%>
 			<%--<li><a href="http://cas-server:8488/cas/logout?service=http://cas-server:8488/cas/login?service=http://cas-client:8080">Call the CAS logout</a></li>--%>

@@ -1,11 +1,10 @@
 package com.hundsun.cas;
 
-import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 public class Servlet1 extends HttpServlet {
 
@@ -20,6 +19,7 @@ public class Servlet1 extends HttpServlet {
         // http://cas-client1:9080
 //        response.sendRedirect("http://cas-server:8488/cas/login?service=http%3A%2F%2Fcas-client1%3A9080%2F");
         response.sendRedirect("http://cas-server:8488/cas/logout?service=http%3A%2F%2Fcas-client1%3A9080%2F");
+//        response.sendRedirect(CasClientConfiguration.getCasLogoutUrl());
     }
 
 }

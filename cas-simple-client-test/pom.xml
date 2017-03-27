@@ -64,7 +64,8 @@
 	</dependencies>
 
 	<build>
-		<finalName>${project.artifactId}</finalName>
+		<!--<finalName>${project.artifactId}</finalName>-->
+		<finalName>client1</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

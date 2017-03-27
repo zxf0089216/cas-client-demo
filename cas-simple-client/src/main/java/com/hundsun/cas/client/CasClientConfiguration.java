@@ -67,6 +67,14 @@ public class CasClientConfiguration {
             logger.debug("Property [cas.app_url] loaded , value is [{}]",config.appUrl);
         }
 
+        String logoutUrlValue = props.getProperty("cas.logout_url");
+        if (isEmpty(logoutUrlValue)){
+            logger.debug("Property [cas.logout_url] not found.  Using default value [{}]",config.logoutUrl);
+        }else {
+            config.logoutUrl = logoutUrlValue;
+            logger.debug("Property [cas.logout_url] loaded , value is [{}]",config.logoutUrl);
+        }
+
         String filterMappingValue = props.getProperty("cas.filter_mapping");
         if (isEmpty(filterMappingValue)){
             logger.debug("Property [cas.filter_mapping] not found.  Using default value [{}]",config.filterMapping);
@@ -105,7 +113,7 @@ public class CasClientConfiguration {
     }
 
     public static String getCasLogoutUrl() {
-        return CasClientConfiguration.getCasServerUrlPrefix()+"/logout?service="+CasClientConfiguration.getCasServerLoginUrl();
+        return CasClientConfiguration.getCasServerUrlPrefix()+"/logout?service="+config.logoutUrl;
     }
 
     public static String getServerName() {
@@ -131,6 +139,7 @@ public class CasClientConfiguration {
     private static class CasConfig {
         public Boolean isEnbale = true;
         public String appUrl = "http://cas-client:8080";
+        public String logoutUrl = "http://cas-client:8080/client1";
         public String serverUrl = "http://cas-server:8488/cas";
         public String filterMapping = "/*";
         public String filterEncoding = "UTF-8";
