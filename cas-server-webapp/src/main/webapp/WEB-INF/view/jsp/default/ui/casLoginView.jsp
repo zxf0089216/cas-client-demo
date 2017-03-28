@@ -5,6 +5,9 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<!--############################ zxf modified start ############################-->
+<!-- 这是改好的基于form提交的版本 -->
+<!--############################ zxf modified end ##############################-->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -42,9 +45,9 @@
                 <div class="form-group">
                     <div class="col-md-12">
                         <form:errors path="*" cssClass="errors" id="msg"/>
-                        <%--<form:errors path="*" id="msg" cssClass="errors" element="div"/>--%>
+                            <%--<form:errors path="*" id="msg" cssClass="errors" element="div"/>--%>
                             <%--<span class="red" style="height:12px;" id="msg">--%>
-                                <%--<form:errors path="*" />--%>
+                            <%--<form:errors path="*" />--%>
                             <%--</span>--%>
                     </div>
                 </div>
@@ -77,8 +80,6 @@
                         <input type="hidden" name="_eventId" value="submit"/>
                         <input type="submit" class="btn btn-sm btn-primary m-r-5"  tabindex="4"
                                value="<spring:message code="screen.welcome.button.login" />" />
-
-                        <%--<button type="submit" class="">登录</button>--%>
                     </div>
                 </div>
             </fieldset>

@@ -193,26 +193,28 @@
         <evaluate expression="generateServiceTicketAction" />
 
 		<!-- ######################zxf mine begin##########################-->
-		<!--<transition on="success" to="loginResponse" />-->
-		<!--<transition on="error" to="loginResponse" />-->
-		<!--<transition on="gateway" to="gatewayServicesManagementCheck" />-->
+		<transition on="success" to="loginResponse" />
+		<!--<transition on="authenticationFailure" to="handleAuthenticationFailure" />-->
+		<transition on="error" to="loginResponse" />
+		<transition on="gateway" to="redirect" />
 		<!-- ######################zxf mine end##########################-->
 
 		<!-- ######################zxf origin begin##########################-->
-		<transition on="success" to ="warn" />
-		<transition on="error" to="generateLoginTicket" />
-		<transition on="gateway" to="gatewayServicesManagementCheck" />
+		<!--<transition on="success" to ="warn" />-->
+		<!--<transition on="error" to="generateLoginTicket" />-->
+		<!--<transition on="gateway" to="gatewayServicesManagementCheck" />-->
 		<!-- ######################zxf origin end##########################-->
 
 	</action-state>
 
 	<!-- ######################zxf mine begin##########################-->
-	<!--<action-state id="loginResponse">-->
-		<!--<evaluate expression="ajaxLoginServiceTicketAction" />-->
-		<!--<transition on="success" to="warn" />-->
-		<!--<transition on="error" to="generateLoginTicket" />-->
-		<!--<transition on="local" to="casAjaxLoginView" />-->
-	<!--</action-state>-->
+	<action-state id="loginResponse">
+		<evaluate expression="ajaxLoginServiceTicketAction" />
+		<transition on="success" to="warn" /><!--非ajax/iframe方式登录，采取原流程处理 -->
+		<transition on="error" to="viewLoginForm" />
+		<transition on="local" to="viewAjaxLoginView" /><!-- 反之，则进入 viewAjaxLoginView 页面 -->
+	</action-state>
+	<end-state id="viewAjaxLoginView" view="casAjaxLoginView" />
 	<!-- ######################zxf mine end##########################-->
 
 	<action-state id="gatewayServicesManagementCheck">

@@ -50,8 +50,6 @@ public final class AjaxLoginServiceTicketAction extends AbstractAction {
         request.setAttribute("isLogin", isLoginSuccess);  
 
         logger.info("go to viewAjaxLoginView.jsp");
-        return new Event(event.getSource(), "local"); // 转入 viewAjaxLoginView.jsp 页面
-//        return new Event(this, "local"); // 转入 viewAjaxLoginView.jsp 页面
-//        return result("local"); // 转入 viewAjaxLoginView.jsp 页面
+        return new Event(this, "local"); // 转入 viewAjaxLoginView.jsp 页面
     }
 }  

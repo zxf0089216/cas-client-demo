@@ -31,14 +31,12 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label">用户名</label>
                     <div class="col-md-7">
-                        <%--<input type="text" class="form-control" placeholder="输入用户名">--%>
                         <input type="text" cssClass="form-control" id="username" size="25" tabindex="1"  placeholder="输入用户名"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">密码</label>
                     <div class="col-md-7">
-                        <%--<input type="password" class="form-control" placeholder="输入密码">--%>
                         <input type="password" cssClass="required form-control" cssErrorClass="error" id="password" size="25" tabindex="2"  placeholder="输入密码"/>
                     </div>
                 </div>

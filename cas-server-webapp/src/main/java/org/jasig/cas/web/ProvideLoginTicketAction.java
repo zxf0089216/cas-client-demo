@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jasig.cas.authentication.principal.Service;
 import org.jasig.cas.util.UniqueTicketIdGenerator;
 import org.jasig.cas.web.support.WebUtils;
 import org.springframework.webflow.action.AbstractAction;
@@ -20,13 +21,6 @@ public class ProvideLoginTicketAction extends AbstractAction {
     @NotNull
     private UniqueTicketIdGenerator ticketIdGenerator;
 
-    public final String generate(final RequestContext context) {
-        final String loginTicket = this.ticketIdGenerator.getNewTicketId(PREFIX);
-        this.logger.debug("Generated login ticket " + loginTicket);
-        WebUtils.putLoginTicket(context, loginTicket);
-        return "generated";
-    }
-
     public void setTicketIdGenerator(final UniqueTicketIdGenerator generator) {
         this.ticketIdGenerator = generator;
     }
@@ -36,12 +30,18 @@ public class ProvideLoginTicketAction extends AbstractAction {
 
         final HttpServletRequest request = WebUtils.getHttpServletRequest(context);
 
+        final String ticketGrantingTicket = WebUtils.getTicketGrantingTicketId(context);
+        if (ticketGrantingTicket != null) {
+            return result("newapp");
+        }
+
         if (request.getParameter("get-lt") != null && request.getParameter("get-lt").equalsIgnoreCase("true")) {
             final String loginTicket = this.ticketIdGenerator.getNewTicketId(PREFIX);
             this.logger.info("--------------Generated login ticket :" + loginTicket);
             WebUtils.putLoginTicket(context, loginTicket);
             return result("loginTicketRequested");
         }
+
         return result("continue");
     }
 }

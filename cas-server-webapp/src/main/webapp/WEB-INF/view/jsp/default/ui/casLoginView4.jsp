@@ -22,31 +22,26 @@
     <!-- begin login -->
     <div class="login">
         <form:form method="post" id="fm1" cssClass="form-horizontal" commandName="${commandName}" htmlEscape="true" onsubmit="return loginValidate();" target="ssoLoginFrame">
-        <%--<form:form method="post" id="fm1" cssClass="form-horizontal" commandName="${commandName}" htmlEscape="true" onsubmit="return loginValidate();">--%>
-            <form:errors path="*" id="msg" cssClass="errors" element="div"/>
             <fieldset>
                 <legend>ARES Cloud</legend>
                 <div class="form-group">
                     <div class="col-md-12">
-                        <%--<form:errors path="*" id="msg" cssClass="errors" element="div"/>--%>
-                            <span class="red" style="height:12px;" id="msg"></span>
+                        <span class="red" style="height:12px;" id="msg"></span>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-md-3 control-label"><spring:message code="screen.welcome.label.password"/></label>
                     <div class="col-md-7">
-                        <%--<input type="text" class="form-control" placeholder="输入用户名">--%>
                         <form:input cssClass="form-control" cssErrorClass="error" id="username" size="25" tabindex="1"
-                                    path="username" autocomplete="false" htmlEscape="true" placeholder="输入用户名"/>
+                                    path="username" autocomplete="false" htmlEscape="true" placeholder="输入用户名" value="admin"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label"><spring:message code="screen.welcome.label.password"/></label>
                     <div class="col-md-7">
-                        <%--<input type="password" class="form-control" placeholder="输入密码">--%>
                         <form:password cssClass="required form-control" cssErrorClass="error" id="password" size="25" tabindex="2"
-                                       path="password" htmlEscape="true" autocomplete="off" placeholder="输入密码"/>
+                                       path="password" htmlEscape="true" autocomplete="off" placeholder="输入密码" value="1"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -70,11 +65,13 @@
 <!-- end page container -->
 
 <!-- ================== BEGIN BASE JS ================== -->
-<%--<script type="text/javascript" src="<c:url value="/js/jquery-1.4.2.min.js" />"></script>--%>
 <script type="text/javascript" src="<c:url value="/assets/plugins/jquery/jquery-1.9.1.js" />"></script>
 <script>
+    var clientUrl = 'http://localhost:8080/client1';
+    var loginUrl = 'http://localhost:8488/cas/login';
+
     $(document).ready(function(){
-//        flushLoginTicket();
+        flushLoginTicket();
     });
 
     // 登录验证函数, 由 onsubmit 事件触发
@@ -96,7 +93,7 @@
             $('#msg').text('服务器正忙，请稍后再试..');
             return false;
         } else {
-            flushLoginTicket();
+//            flushLoginTicket();
 //            console.log("验证成功开始创建iframe...");
             $('body').append($('<iframe/>').attr({
                 style: "display:none;width:0;height:0",
@@ -104,20 +101,6 @@
                 name: "ssoLoginFrame",
                 src: "javascript:false;"
             }));
-//            console.log($('#fm1').serialize());
-//            $.ajax({
-//                type: "POST",
-//                url: "http://cas-server:8488/cas/login",
-//                data:$('#fm1').serialize(),
-//                success: function(msg){
-//                }
-//            });
-
-//            $.post('http://cas-server:8488/cas/login', $("#fm1").serialize(), function(data) {
-//                console.log(data);
-//            });
-
-//            return false;
             return true;
         }
     }
@@ -150,17 +133,10 @@
 
     // 由于一个 login ticket 只允许使用一次, 当每次登录需要调用该函数刷新 lt
     var flushLoginTicket = function(){
-        var _services = 'service=' + encodeURIComponent('http://cas-client:8080');
-//        $.getJSON('http://cas-server:8488/cas/login?'+_services+'&get-lt=true&n='+ new Date().getTime(),
-//            function(data){
-//            console.log(data);
-//                // 将返回的 _loginTicket 变量设置到  input name="lt" 的value中。
-////                $('#loginTicket').val(_loginTicket);
-//            });
-
-        $.getJSON('http://cas-server:8488/cas/login?'+_services+'&get-lt=true&n='+ new Date().getTime()+ "&callback=?",
+        var _services = 'service=' + encodeURIComponent(clientUrl);
+        $.getJSON(loginUrl+'?'+_services+'&get-lt=true&n='+ new Date().getTime()+ "&callback=?",
             function(response) {
-                console.log(response);
+                console.log("flushLoginTicket success",response);
                 $('#loginTicket').val(response.lt);
                 $('#flowExecutionKey').val(response.execution);
             });

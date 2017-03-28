@@ -18,20 +18,18 @@
 </head>
 <body>
 <script type="text/javascript">
-    <%
-        Boolean isFrame = (Boolean)request.getAttribute("isFrame");
-        Boolean isLogin = (Boolean)request.getAttribute("isLogin");
-        // 登录成功
-        if(isLogin){
-            if(isFrame){%>
-    parent.location.replace('${service}?ticket=${ticket}')
-    <%} else{%>
-    location.replace('${service}?ticket=${ticket}')
-    <%}
-}
+<%
+    Boolean isFrame = (Boolean)request.getAttribute("isFrame");
+    Boolean isLogin = (Boolean)request.getAttribute("isLogin");
+    if(isLogin){
+        if(isFrame){%>
+            parent.location.replace('${service}?ticket=${ticket}')
+        <%} else{%>
+            location.replace('${service}?ticket=${ticket}')
+        <%}
+    }
 %>
-    // 回调
-        ${callback}({'login':${isLogin ? '"success"': '"fails"'}, 'msg': ${isLogin ? '""': '"用户名或密码错误！"'}})
+${callback}({'login':${isLogin ? '"success"': '"fails"'}, 'msg': ${isLogin ? '""': '"用户名或密码错误！"'}})
 </script>
 </body>
 </html>
