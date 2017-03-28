@@ -32,14 +32,14 @@
                     <label class="col-md-3 control-label">用户名</label>
                     <div class="col-md-7">
                         <%--<input type="text" class="form-control" placeholder="输入用户名">--%>
-                        <input type="text" cssClass="form-control" id="username" size="25" tabindex="1"  placeholder="输入用户名"/>
+                        <input type="text" cssClass="form-control" id="username" size="25" tabindex="1"  placeholder="输入用户名" value="admin"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">密码</label>
                     <div class="col-md-7">
                         <%--<input type="password" class="form-control" placeholder="输入密码">--%>
-                        <input type="password" cssClass="required form-control" cssErrorClass="error" id="password" size="25" tabindex="2"  placeholder="输入密码"/>
+                        <input type="password" cssClass="required form-control" cssErrorClass="error" id="password" size="25" tabindex="2"  placeholder="输入密码" value="1"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -63,9 +63,9 @@
 
 <script type="text/javascript" src="<c:url value="/assets/plugins/jquery/jquery-1.9.1.js" />"></script>
 <script>
-    var loginUrl = 'http://localhost/cas/login';
-    var clientUrl = 'http://localhost:8080';
-    var logoutUrl = 'http://localhost/cas/logout';
+    var loginUrl = 'http://localhost:8488/cas/login';
+    var clientUrl = 'http://localhost:8080/client1';
+    var logoutUrl = 'http://localhost:8488/cas/logout';
 //    logout();
 //    login();
 
