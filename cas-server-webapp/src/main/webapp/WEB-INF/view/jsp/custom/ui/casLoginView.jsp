@@ -53,26 +53,32 @@
                 <form:form method="post" id="fm1" cssClass="margin-bottom-0" commandName="${commandName}" htmlEscape="true">
                     <div class="form-group">
                         <div class="col-md-12">
-                            <span class="errors" id="msg" style="display: block"></span>
+                            <form:errors path="*" cssClass="errors" id="msg"/>
                         </div>
                     </div>
                     <div class="form-group m-b-15">
+                        <%--<label><spring:message code="screen.welcome.label.netid" /></label>--%>
                         <label>用户名</label>
                         <c:if test="${not empty sessionScope.openIdLocalId}">
                             <input class="form-control input-lg" type="hidden" id="username" name="username" value="${sessionScope.openIdLocalId}" required=""/>
                         </c:if>
                         <c:if test="${empty sessionScope.openIdLocalId}">
+                            <%--<form:input cssClass="form-control input-lg" cssErrorClass="error" id="username" size="25" tabindex="1"--%>
+                                        <%--path="username" autocomplete="false" htmlEscape="true" placeholder="" required=""/>--%>
                             <input name="username" id="username" type="text" class="form-control input-lg" placeholder="" required>
                         </c:if>
                     </div>
                     <div class="form-group m-b-15">
+                        <%--<label><spring:message code="screen.welcome.label.password"/></label>--%>
                         <label>密码</label>
                         <input type="password" name="password" id="password" class="form-control input-lg" placeholder="" required>
+                        <%--<form:password cssClass="form-control input-lg" cssErrorClass="error" id="password" size="25" tabindex="2"--%>
+                                       <%--path="password" htmlEscape="true" autocomplete="off" placeholder="" required=""/>--%>
                     </div>
                     <input id="loginTicket" type="hidden" name="lt" value="${loginTicket}"/>
                     <input id="flowExecutionKey" type="hidden" name="execution" value="${flowExecutionKey}"/>
                     <input type="hidden" name="_eventId" value="submit"/>
-                    <button id="submitBtn" type="submit" class="btn btn-block btn-lg"  tabindex="4">登录</button>
+                    <button type="submit" class="btn btn-block btn-lg"  tabindex="4">登录</button>
                 </form:form>
             </div>
         </div>

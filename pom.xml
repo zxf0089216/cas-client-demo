@@ -79,6 +79,7 @@
 		<module>cas-oauth-server-demo-3.5.x</module>
 		<module>cas-server-support-jdbc</module>
 		<module>cas-server-support-oauth</module>
+		<module>cas-server-integration-ehcache</module>
 		<module>cas-server-core</module>
 		<module>cas-server-webapp</module>
 		<module>cas-client</module>

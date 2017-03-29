@@ -13,6 +13,8 @@
     3.0 Page Options
     3.1 Header & header elements
     3.2 Sidebar & sidebar elements
+        3.2.1 Dropdown
+        3.2.2 Dropdown type for ux
     3.3 Content & content elements 
     
 ::  4.0 Component Setting
@@ -28,8 +30,6 @@
 ::  6.0 Page Setting
 -------------------------------------------
     6.0 Overview Page
-    6.1 User Page
-        6.1.1 Login Page
 
 ::  7.0 Theme Setting
 -------------------------------------------
@@ -385,7 +385,7 @@ ol {
 /* 3.0 Page Options */
 
 .page-header-fixed {
-    padding-top: 54px;
+    padding-top: 57px;
 }
 .page-without-sidebar .content {
     margin-left: 0;
@@ -508,7 +508,7 @@ ol {
     left: 0;
     top: 0;
     bottom: 0;
-    padding-top: 84px;
+    padding-top: 131px;
     background: #2d353c;
     z-index: 1010;
     -webkit-transform: translateZ(0);
@@ -531,9 +531,12 @@ ol {
     display: table;
 }
 .sidebar .nav > li > a {
-    padding: 8px 20px;
+    padding: 8px 30px 8px 20px;
     line-height: 20px;
     color: #2d353c;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .sidebar .nav > li.expand > a,
 .sidebar .nav > li > a:hover,
@@ -583,6 +586,16 @@ ol {
 .sidebar .nav > li.expand > a .caret:after {
     top: 2px;
 }
+.sidebar .nav > li .sidebar-minify-btn {
+    position: fixed;
+    top: 57px;
+    width: 220px;
+}
+.sidebar .nav > li.nav-header {
+    position: fixed;
+    top: 87px;
+    width: 220px;
+}
 .sidebar .nav > li.nav-header > a .caret {
     display: inline-block;
     width: 0;
@@ -631,6 +644,9 @@ ol {
     text-decoration: none;
     position: relative;
     margin-left: -30px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .sidebar .sub-menu > li > a:before {
     content: '\f10c';
@@ -668,8 +684,11 @@ ol {
     box-shadow: 0px 1px 3px rgba(0,0,0,.2);
 }
 .sidebar .nav > li.nav-header a {
-    padding: 12px 20px;
+    padding: 12px 30px 12px 20px;
     margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .sidebar .nav > li.nav-header a:hover,
 .sidebar .nav > li.nav-header a:focus {
@@ -732,6 +751,27 @@ ol {
 .page-sidebar-minified .sidebar .nav-profile,
 .page-sidebar-minified .sidebar .nav > li > a > span {
     display: none;
+}
+.page-sidebar-minified .sidebar .nav > li .sidebar-minify-btn {
+    width: 60px;
+}
+.page-sidebar-minified .sidebar .nav > li.nav-header {
+    width: 60px;
+}
+.page-sidebar-minified .sidebar .nav > li.expand > a .caret {
+    border-bottom: 0;
+}
+.page-sidebar-minified .sidebar .nav > li.expand > a .caret:after {
+    border-bottom: 0;
+}
+.page-sidebar-minified .sidebar .nav > li > a .caret {
+    border-top: 0;
+}
+.page-sidebar-minified .sidebar .nav > li > a .caret:after {
+    border-top: 0; 
+}
+.page-sidebar-minified .sidebar .nav > li.active > a .caret:after {
+    border-top: 0;
 }
 .page-sidebar-minified .sidebar .nav-header{
     display: block;
@@ -807,6 +847,162 @@ ol {
     display: block;
 }
 
+/* 3.2.1 Dropdown */
+
+.sidebar .nav > li.nav-header .application-dropdown {
+    position: absolute;
+    left:0px;
+    top: 48px;
+    z-index: 1012;
+}
+.sidebar .nav > li.nav-header .application-dropdown .dropdown-menu{
+    padding: 5px;
+}
+.sidebar .nav > li.nav-header .application-dropdown .dropdown-menu li{
+    border-bottom: solid 1px #f5f5f5;
+}
+.sidebar .nav > li.nav-header .application-dropdown .dropdown-menu li a {
+    cursor: pointer;
+}
+.sidebar .nav > li.nav-header .application-dropdown .dropdown-menu li:last-child{
+    border-bottom: none;
+}
+.sidebar .nav > li.nav-header .application-dropdown .dropdown-menu li a{
+    padding: 8px 15px 8px 25px!important;
+    display: block!important;
+}
+.sidebar .nav > li.nav-header .application-dropdown .dropdown-menu > li > a:hover, 
+.sidebar .nav > li.nav-header .application-dropdown .dropdown-menu > li > a:focus {
+     background:rgba(194,201,208,0.30)!important;
+     color: #333!important;
+}
+.sidebar .nav > li.nav-header .application-dropdown .dropdown-menu li.active > a,
+.sidebar .nav > li.nav-header .application-dropdown .dropdown-menu li.active > a:hover{
+    background: #fff!important;
+}
+
+/* 3.2.2 Dropdown type for ux */
+
+.user-dropdown {
+    position: absolute;
+    z-index: 1012;
+}
+.user-dropdown .dropdown-menu {
+    margin-top: 1px;
+    padding: 5px;
+    border-radius: 0;
+}
+.user-dropdown .dropdown-menu .menu-list-header {
+    overflow: hidden;
+    clear: both;
+    padding-bottom: 5px;
+    border-bottom: solid 1px #ddd;
+}
+.user-dropdown .dropdown-menu .menu-list-header > a {
+    float: right;
+    clear: none;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0;
+    text-align: center;
+    background: #f5f5f5;
+    margin-right: 5px;
+    border: none;
+}
+.user-dropdown .dropdown-menu .menu-list-header > a > i.fa {
+    line-height: 30px;
+}
+.user-dropdown .dropdown-menu .menu-list-header > a > i.iconfont {
+    font-size: 12px;
+}
+.user-dropdown .dropdown-menu .menu-list-header > a.active {
+    background: #329af7!important;
+    color: #fff!important;
+}
+.user-dropdown .dropdown-menu .menu-list-header > .form-group {
+    float: right;
+    clear: none;
+    width: 100%;
+    vertical-align: middle;
+    position: relative;
+    margin: 5px 0 0 0;
+}
+.user-dropdown .dropdown-menu .menu-list-header .form-group .form-control {
+    padding: 5px 15px;
+    height: 30px;
+    box-shadow: none;
+    border-radius: 0px;
+    margin-right: 5px;
+    font-size: 12px;
+}
+.user-dropdown .dropdown-menu .menu-list-header .form-group .btn-search {
+    position: absolute;
+    right: 5px;top: 0px;
+    height: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: none;
+    background: transparent;
+    outline: none;
+}
+.user-dropdown .dropdown-menu .menu-list-content {
+    height: 272px;
+    overflow-y: auto;
+}
+.user-dropdown .dropdown-menu .menu-list-content > ul {
+    padding-left: 0;
+}
+.user-dropdown .dropdown-menu .menu-list-content > ul > li {
+    border-bottom: solid 1px #f5f5f5;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.user-dropdown .dropdown-menu .menu-list-content > ul > li:hover {
+    background: #f5f5f5;
+}
+.user-dropdown .dropdown-menu .menu-list-content > ul > li:last-child {
+    border-bottom: none;
+}
+.user-dropdown .dropdown-menu .menu-list-content > ul > li > a {
+    padding: 8px 15px 8px 50px!important;
+    display: block!important;
+    cursor: pointer;
+    color: #333;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.user-dropdown .dropdown-menu .menu-list-content > ul > li.active > a {
+    font-weight: bold;
+    position: relative;
+}
+.user-dropdown .dropdown-menu .menu-list-content > ul > li.active > a:after {
+    position: absolute;
+    left: 28px;
+    top: 10px;
+    display: inline-block;
+    font: 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    opacity: 1;
+    content: "\f058";
+    color: #83BFF5;
+}
+
+/* Dropdown more type for ux */
+.user-dropdown .dropdown-menu.menu-more .menu-list-header .form-group {
+    width: 300px;
+    margin: 0 5px 0 0;
+}
+.user-dropdown .dropdown-menu.menu-more .menu-list-content > ul {
+    width: 20%;
+    float: left;
+}
+
 /* 3.3 Content & content elements */
 
 .content {
@@ -823,20 +1019,6 @@ ol {
 .page-header span {
     color: #2D353C;
 }
-.breadcrumb {
-    padding: 0;
-    margin: 0;
-    background: none;
-}
-.breadcrumb > li {
-    line-height: 28px;
-}
-.ie8 .breadcrumb > li {
-    display: inline;
-}
-.breadcrumb > li a {
-    color: #333;
-}
 
 
 /* -------------------------------
@@ -847,7 +1029,7 @@ ol {
 /* 4.0 Component - Dropdown Menu */
 
 .dropdown-menu {
-    border: none;
+    border-color: #eee;
     -webkit-box-shadow: 0 2px 5px -1px rgba(0, 0, 0, 0.2);
     box-shadow: 0 2px 5px -1px rgba(0, 0, 0, 0.2);
     font-size: 12px;
@@ -933,28 +1115,8 @@ ol {
     border-radius: 50%;
     display: inline-block;
     margin: 0 2px 2px -10px;
-
 }
 
-/* 6.1 User Page */
-
-/* 6.1.1 Login Page */
-.login {
-    margin: -168px 0 0 -220px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 440px;
-    padding: 20px;
-    border: 1px solid #eee;
-}
-.login legend{
-    height: 40px;
-    line-height: 40px;
-    border-bottom: 0;
-    margin-left: 28%;
-    margin-bottom: 10px;
-}
 
 /* -------------------------------
    7.0 Theme Setting
@@ -1020,11 +1182,6 @@ ol {
 }
 .sidebar-bg {
     background: #f0f6f6;
-}
-.sidebar .nav > li .sidebar-minify-btn {
-    position: fixed;
-    top: 54px;
-    width: 220px;
 }
 .sidebar .nav > li .sidebar-minify-btn,
 .sidebar .nav > li .sidebar-minify-btn:hover {
@@ -1113,9 +1270,6 @@ ol {
     color: #fff;
 }
 .sidebar .nav > li.nav-header {
-    position: fixed;
-    top: 84px;
-    width: 220px;
     color: #6d7983;
     background: #fff;
 }
@@ -1147,26 +1301,196 @@ ol {
     background:#329af7; 
     color: #fff;
 }
-.page-sidebar-minified .sidebar .nav > li .sidebar-minify-btn {
-    width: 60px;
-}
-.page-sidebar-minified .sidebar .nav > li.nav-header {
-    width: 60px;
-}
 .page-sidebar-minified .sidebar .nav > li.nav-header > a .caret {
     color: #fff;
-}
-.page-sidebar-minified .sidebar .nav > li > a .caret {
-    border-top: none;
-}
-.page-sidebar-minified .sidebar .nav > li.active > a .caret:after {
-    border-top: none;
 }
 
 /* -------------------------------
    8.0 Custom Setting
 ------------------------------- */
 
-
 /* 8.0 Custom */
+
+/* -------------------------------
+    Login Unified begin
+------------------------------- */
+
+/*  
+    4.2 Component - Wizard
+    4.3 Component - button-fixed-bottom
+    4.4 Component - data-exchange 
+    4.5 Component - search-form
+*/
+/* these will move to the top of component part in the second step of PAAS */ 
+/* 4.2 Component - Wizard */
+.wizard {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+.wizard-steps {
+    padding-left: 0;
+    margin-bottom: 0;
+    font-size: 14px;
+    overflow: hidden;
+}
+.wizard-steps li {
+    float: none;
+    display: inline-block;
+    padding: 15px 7px;
+    line-height: 20px;
+}
+.wizard-steps .label {
+    float: left;
+    padding: 0;
+    height: 20px;
+    width: 20px;
+    line-height: 20px;
+    text-align: center;
+    margin-right: 10px;
+    top: 0;
+    background: #6d7479;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+.wizard-steps li.active {
+    color: #2C92FB;
+}
+.wizard-steps li.active .label {
+    background: #2C92FB;
+}
+.wizard-steps li .divide {
+    display: inline-block;
+    width: 60px;
+    height: 2px;
+    margin-bottom: 3px;
+    background: #ddd;
+}
+
+/* 4.3 Component - button-fixed-bottom */
+.button-fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 220px;
+    right: 0;
+    padding: 5px 20px;
+    height: 45px;
+    text-align: right;
+    border-top: 1px solid #ddd;
+    background: #eee;
+}
+.page-sidebar-minified .button-fixed-bottom {
+    left: 60px;
+}
+/* 4.4 Component - data-exchange */
+.data-exchange-header {
+    margin-top: 30px;
+    border: solid 1px #ddd;
+    border-bottom: 0;
+}
+.data-exchange-header table {
+    margin-bottom: 0;
+}
+.data-exchange-header table th {
+    border-bottom: solid 1px #ddd !important;
+    background: #F7F8FC;
+}
+.data-exchange-body {
+    height: 400px;
+    overflow-y: scroll;
+    margin-top: -1px;
+    margin-bottom: 20px;
+    border: solid 1px #ddd;
+    border-top: 0;
+}
+.data-exchange-header table > thead > tr > th:last-child,
+.data-exchange-body table > tbody > tr > td:last-child {
+    text-align: right;
+}
+.data-exchange-body table > tbody > tr.active {
+    background: #f5f5f5;
+}
+.data-exchange-body table {
+    margin-bottom: 0;
+}
+.data-exchange-btn {
+    margin-top: 230px;
+    text-align: center;
+}
+.data-exchange-btn button i {
+    color: #999;
+    font-size: 18px;
+}
+.data-exchange-btn button.active,
+.data-exchange-btn button.active:focus {
+    background: #337ab7!important;
+}
+.data-exchange-btn button.active i {
+    color: #fff;
+}
+/* 4.5 Component - search-form */
+.search-form {
+    display: inline-block;
+    margin: 12px 0;
+    position: relative;
+}
+.search-form .form-control {
+    width: 200px;
+    padding: 5px 15px;
+    height: 30px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.search-form .btn-search {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: none;
+    background: none;
+    -webkit-border-radius: 0 30px 30px 0;
+    -moz-border-radius: 0 30px 30px 0;
+    border-radius: 0 30px 30px 0;
+}
+
+/* 3.2 Sidebar & sidebar elements */
+.sidebar {
+    padding-top: 87px;
+}
+.sidebar .nav > li > a {
+    padding: 8px 20px;
+}
+.sidebar .nav > li.nav-header a {
+    padding: 12px 20px;
+}
+/* 3.3 Content & content elements */
+.content {
+    padding: 20px 25px 45px 25px;
+}
+/* 4.0 Component - Dropdown Menu */
+.dropdown-menu {
+    border: none;
+}
+/* 7.0 Theme */
+/* Sidebar */
+.sidebar .nav > li.active > a,
+.sidebar .nav > li.active > a:hover, 
+.sidebar .nav > li.active > a:focus {
+    background: #329af7;
+    color: #fff;
+}
+.sidebar .nav > li.nav-header {
+    top: 84px;
+}
+
+/* -------------------------------
+    Login Unified end
+------------------------------- */
+
+/* user custom css */
 

@@ -6,7 +6,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!--############################ zxf modified start ############################-->
-<!-- 这是改好的基于form提交的版本 -->
+<!-- 第一版UI基于form提交的版本 -->
 <!--############################ zxf modified end ##############################-->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>

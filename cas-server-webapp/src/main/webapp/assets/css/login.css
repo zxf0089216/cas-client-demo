@@ -14,21 +14,103 @@
 ------------------------------- */
 
 /* 1.0 Login Page */
-.login {
-    margin: -168px 0 0 -220px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 440px;
-    padding: 20px;
-    border: 1px solid #eee;
+
+.login .news-feed {
+    position: fixed;
+    left: 0;
+    right: 560px;
+    top: 0;
+    bottom: 0;
 }
-.login legend{
-    height: 40px;
-    line-height: 40px;
-    border-bottom: 0;
-    margin-left: 28%;
-    margin-bottom: 10px;
+.login .news-feed .news-image {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: url(../img/bg.png) center center no-repeat;
+    background-size: cover;
+}
+.login .news-feed .news-image img {
+    position: absolute;
+}
+.login .news-feed .news-image img.img-title {
+    left: 60px;
+    top: 50%;
+    margin-top: -270px;
+}
+.login .news-feed .news-image img.img-square {
+    right: 110px;
+    top: 70px;
+}
+.login .news-feed .news-image img.img-trangle {
+    right: 110px;
+    bottom: 70px;
+}
+.login .news-feed .news-image img.img-title-s,
+.login .news-feed .news-image img.img-square-s,
+.login .news-feed .news-image img.img-trangle-s {
+    display: none;
+}
+.login .right-content {
+    float: right;
+    width: 560px;
+    padding: 160px 90px;
+}
+.login .right-content .login-header {
+    margin-bottom: 90px;
+}
+.login .right-content .login-header h3{
+    color: #1db2dc;
+}
+.login .right-content .login-content .form-group label {
+    font-size: 14px;
+    color: #999; 
+}
+.login .right-content .login-content button {
+    margin-top: 40px;
+    font-size: 18px;
+    color: #fff;
+    background: #1db2dc;
+}
+
+@media (max-width: 1366px) {
+    .login .right-content .login-header {
+        margin-bottom: 60px;
+    }
+    .login .right-content .login-header h3{
+        font-size: 22px;
+        font-weight: bold;
+    }
+    .login .news-feed,
+    .login .right-content {
+        right: 400px;
+    }
+    .login .right-content {
+        width: 400px;
+        padding: 98px 50px;
+    }
+    .login .news-feed .news-image img.img-title,
+    .login .news-feed .news-image img.img-square,
+    .login .news-feed .news-image img.img-trangle {
+        display: none;
+    }
+    .login .news-feed .news-image img.img-title-s,
+    .login .news-feed .news-image img.img-square-s,
+    .login .news-feed .news-image img.img-trangle-s {
+        display: block;
+    }
+    .login .news-feed .news-image img.img-title-s {
+        left: 50px;
+        top: 50%;
+        margin-top: -210px;
+    }
+    .login .news-feed .news-image img.img-square-s {
+        right: 80px;
+        top: 50px;
+    }
+    .login .news-feed .news-image img.img-trangle-s {
+        right: 80px;
+        bottom: 50px;
+    }
 }
 
 /* -------------------------------

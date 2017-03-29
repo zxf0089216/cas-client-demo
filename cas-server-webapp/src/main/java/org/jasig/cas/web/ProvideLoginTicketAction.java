@@ -30,10 +30,10 @@ public class ProvideLoginTicketAction extends AbstractAction {
 
         final HttpServletRequest request = WebUtils.getHttpServletRequest(context);
 
-        final String ticketGrantingTicket = WebUtils.getTicketGrantingTicketId(context);
-        if (ticketGrantingTicket != null) {
-            return result("newapp");
-        }
+//        final String ticketGrantingTicket = WebUtils.getTicketGrantingTicketId(context);
+//        if (ticketGrantingTicket != null) {
+//            return result("newapp");
+//        }
 
         if (request.getParameter("get-lt") != null && request.getParameter("get-lt").equalsIgnoreCase("true")) {
             final String loginTicket = this.ticketIdGenerator.getNewTicketId(PREFIX);

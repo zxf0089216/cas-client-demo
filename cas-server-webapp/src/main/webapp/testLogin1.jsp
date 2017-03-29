@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: zxf
-  Date: 2017/3/27 0027
-  Time: 20:04
-  参考:http://www.coin163.com/it/x308546869005816687/cas-cas-ajax-cas4.0
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -13,43 +6,56 @@
 </head>
 <body>
 <a href="#" onclick="login()">点这测试</a>
+<input id="loginTicket" type="hidden" name="lt" value="${loginTicket}"/>
+<input id="flowExecutionKey" type="hidden" name="execution" value="${flowExecutionKey}"/>
 <script type="text/javascript" src="<c:url value="/assets/plugins/jquery/jquery-1.9.1.js" />"></script>
 <script>
+    var loginUrl = 'http://localhost:8488/cas/login';
+    var logoutUrl = 'http://localhost:8488/cas/logout';
+    var clientUrl="service=http%3A%2F%2Flocalhost%3A8080%2Fclient1%2F";
+    clientUrl=getParameter(clientUrl,"service")
+    console.log(clientUrl);
+
     function login(){
         $.ajax({
-            url: 'http://localhost/cas/login',
+            url: loginUrl,
             type: 'GET',
-            data:{Name:"keyun"},
+            data:{},
             dataType: 'html',
-            timeout: 1000,
+            timeout: 3000,
             async:false,
-            error: function(){alert('Error');},
+            error: function(e){console.log("验证登录失败",e);alert('系统错误');},
             success: function(result){
                 //如果用户本来就是登录着的,可以选择让用户直接跳转,还有个更妥当方法是注销用户,然后再掉login重新获取
-//                if(result.indexOf("Log In Successful")!=-1){
-                if(result.indexOf("登录成功")!=-1){
+                if(isSuccesss(result)){
                     // window.location.href="http://localhost/test";
                     logout();
-                    login();
-                    return;
                 }
 
-                var ltsl=result.indexOf("\"LT"); //截取LT位置
-                var lt=result.substring(ltsl+1);
-                lt=lt.substring(0,lt.indexOf("\""));
+                flushLoginTicket(post);
+//                flushLoginTicket();
+            }
+        });
+    }
 
-                var evsl=result.indexOf("execution\" value=\""); //截取execution位置
+    function flushLoginTicket(callback){
+//        var _services = 'service=' + encodeURIComponent(clientUrl);
+//        $.getJSON(loginUrl + '?'+_services+'&get-lt=true&n='+ new Date().getTime()+ "&callback=?",function(response) {
+        $.getJSON(loginUrl + '?get-lt=true&n='+ new Date().getTime()+ "&callback=?",function(response) {
 
-                var ev=result.substring(evsl+18);
-                ev=ev.substring(0,ev.indexOf("\""));
-                post(lt,ev);
+                console.log(response);
+            $('#loginTicket').val(response.lt);
+            $('#flowExecutionKey').val(response.execution);
+
+            if(callback){
+                callback();
             }
         });
     }
 
     function logout(){
         $.ajax({
-            url: 'http://localhost/cas/logout',
+            url: logoutUrl,
             type: 'GET',
             dataType: 'html',
             timeout: 1000,
@@ -61,27 +67,44 @@
         });
     }
 
-    //提交请求
-    function post(lt,ev){
+    function post(){
+        var lt=$('#loginTicket').val();
+        var ev=$('#flowExecutionKey').val();
+//        console.log(lt,ev);
         $.ajax({
-            url: 'http://localhost/cas/login',
+            url: loginUrl,
             type: 'POST',
-            async:false,
+            async:true,
             data:{"execution":ev,"lt":lt,"password":"1","submit":"LOGIN","username":"admin","_eventId":"submit"},
-            //dataType: 'json',
-            timeout: 1000,
+//            dataType: 'jsonp',
+            timeout: 3000,
             error: function(r){
-                debugger;
-                alert('Error');
+              console.error("登录失败",r);
             },
             success: function(result){
+                console.log("post success..");
                 //如果登陆成功,则跳转,否则提示错误
-                if(result.indexOf("登录成功")!=-1){
-                    alert('ok   lt:'+lt);
-//                    window.location.href="http://localhost/test";
+                if(isSuccesss(result)){
+                    alert('登录成功');
+                    window.location.href = clientUrl;
+                }else{
+                    alert("登录失败");
                 }
             }
         });
+    }
+
+    function isSuccesss(res) {
+        return "success"==res;
+    }
+
+    function getParameter(uri,name){
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+//        var r = window.location.search.substr(1).match(reg);
+        var r = uri.match(reg);
+        if(r!=null){
+            return decodeURIComponent(r[2]); return null;
+        }
     }
 </script>
 </body>
