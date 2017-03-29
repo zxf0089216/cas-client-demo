@@ -4,16 +4,13 @@ $(function () {
         rules: {
             username: {
                 required: true,
-                minlength: 2,
+                minlength: 1,
                 maxlength: 32
             },
             password: {
                 required: true,
                 minlength: 1,
                 maxlength: 32
-            },
-            "confirm-password": {
-                equalTo: "#password"
             }
         },
         messages: {
@@ -38,6 +35,7 @@ $(function () {
     }).focusout(function () {
         $msg.text("").hide();
     });
+
 });
 
 var loginUrl = window.location.protocol + "//" + window.location.host + '/cas/login';
@@ -52,7 +50,7 @@ function login() {
 
     $submitBtn.attr({"disabled":"disabled"});
 
-    $.getJSON(ticketUrl).done(function (res) {
+    $.getJSON(ticketUrl).success(function (res) {
         $.ajax({
             url: loginUrl,
             type: 'POST',
@@ -66,10 +64,6 @@ function login() {
                 "_eventId": "submit"
             },
             timeout: 3000,
-            error: function (r) {
-                console.error("登录失败", r);
-                $submitBtn.removeAttr("disabled");
-            },
             success: function (result) {
                 if (isSuccesss(result)) {
                     if (clientUrl) {
@@ -85,6 +79,7 @@ function login() {
         });
     }).fail(function (e) {
         console.error(e);
+        $submitBtn.removeAttr("disabled");
         alert("登录失败");
     })
 }
