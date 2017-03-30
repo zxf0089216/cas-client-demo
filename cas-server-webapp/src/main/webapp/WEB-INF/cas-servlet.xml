@@ -139,7 +139,10 @@
                                  expression-parser="expressionParser"/>
 
   <bean id="terminateWebSessionListener" class="org.jasig.cas.web.flow.TerminateWebSessionListener"
-      p:serviceManagerUrl="${cas.securityContext.serviceProperties.service}" />
+      p:serviceManagerUrl="${cas.securityContext.serviceProperties.service}"
+      p:timeToDieInSeconds="${login.flow.session.time2dieSeconds:20}"
+  />
+  <!-- zxf add at 20170330-->
   <!-- p:timeToDieInSeconds="${login.flow.session.time2dieSeconds:20}" -->
   <bean id="expressionParser" class="org.springframework.webflow.expression.WebFlowOgnlExpressionParser"/>
 
