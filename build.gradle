@@ -1,0 +1,27 @@
+plugins {
+    id 'org.hidetake.ssh' version '2.8.0'
+}
+
+remotes {
+    webServer {
+        host = 'hadoop.node01'
+        user = 'root'
+        identity = file('id_rsa')
+    }
+}
+
+task copyLocalTargetDir(type: Copy) {
+    from 'cas-server-webapp\\target\\cas'
+    into 'D:\\temp\\rubbish'
+}
+
+task deploy {
+    doLast {
+        ssh.run {
+            session(remotes.webServer) {
+                put from: 'cas-server-webapp/target/cas.war', into: '/webapps'
+//                execute 'sudo service tomcat restart'
+            }
+        }
+    }
+}

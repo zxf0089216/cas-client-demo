@@ -20,3 +20,7 @@ h2. Manual deployment
 You can also deploy manually these two web applications in your favorite web applications server :
 - cas-oauth-client-demo-3.5.x on http://localhost:8080/cas
 - cas-oauth-server-demo-3.5.x on http://localhost:8080/cas2
+
+
+gradle wrapper --gradle-version 3.4.1
+
