@@ -54,12 +54,12 @@ public final class SendTicketGrantingTicketAction extends AbstractAction {
             return success();
         }
         
-        this.ticketGrantingTicketCookieGenerator.addCookie(WebUtils.getHttpServletRequest(context), WebUtils
-            .getHttpServletResponse(context), ticketGrantingTicketId);
+        this.ticketGrantingTicketCookieGenerator.addCookie(
+                WebUtils.getHttpServletRequest(context),
+                WebUtils.getHttpServletResponse(context), ticketGrantingTicketId);
 
         if (ticketGrantingTicketValueFromCookie != null && !ticketGrantingTicketId.equals(ticketGrantingTicketValueFromCookie)) {
-            this.centralAuthenticationService
-                .destroyTicketGrantingTicket(ticketGrantingTicketValueFromCookie);
+            this.centralAuthenticationService.destroyTicketGrantingTicket(ticketGrantingTicketValueFromCookie);
         }
 
         return success();

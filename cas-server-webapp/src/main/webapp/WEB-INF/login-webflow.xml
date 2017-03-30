@@ -143,9 +143,6 @@
             <binding property="password" />
         </binder>
         <on-entry>
-			<!-- zxf add start -->
-			<!--<set name="requestScope.messages" value="messageContext.allMessages" />-->
-			<!-- zxf add end -->
             <set name="viewScope.commandName" value="'credentials'" />
         </on-entry>
 		<transition on="submit" bind="true" validate="true" to="realSubmit">

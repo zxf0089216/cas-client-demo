@@ -75,11 +75,11 @@ public class AuthenticationViaFormAction {
         // Validate login ticket
         final String authoritativeLoginTicket = WebUtils.getLoginTicketFromFlowScope(context);
         final String providedLoginTicket = WebUtils.getLoginTicketFromRequest(context);
+
         if (!authoritativeLoginTicket.equals(providedLoginTicket)) {
             this.logger.warn("Invalid login ticket " + providedLoginTicket);
             final String code = "INVALID_TICKET";
-            messageContext.addMessage(
-                new MessageBuilder().error().code(code).arg(providedLoginTicket).defaultText(code).build());
+            messageContext.addMessage(new MessageBuilder().error().code(code).arg(providedLoginTicket).defaultText(code).build());
             return "error";
         }
 
@@ -111,8 +111,9 @@ public class AuthenticationViaFormAction {
             return "success";
         } catch (final TicketException e) {
             populateErrorsInstance(e, messageContext);
-            if (isCauseAuthenticationException(e))
+            if (isCauseAuthenticationException(e)){
                 return getAuthenticationExceptionEventId(e);
+            }
             return "error";
         }
     }

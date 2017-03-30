@@ -70,6 +70,7 @@ function login() {
                         window.location.href = clientUrl;
                     } else {
                         alert("登录成功");
+                        $submitBtn.removeAttr("disabled");
                     }
                 } else {
                     $msg.text("用户名密码错误").fadeIn();

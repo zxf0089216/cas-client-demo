@@ -69,8 +69,7 @@ public final class InitialFlowSetupAction extends AbstractAction {
         if (!this.pathPopulated) {
             final String contextPath = context.getExternalContext().getContextPath();
             final String cookiePath = StringUtils.hasText(contextPath) ? contextPath + "/" : "/";
-            logger.info("Setting path for cookies to: "
-                + cookiePath);
+            logger.info("Setting path for cookies to: " + cookiePath);
             this.warnCookieGenerator.setCookiePath(cookiePath);
             this.ticketGrantingTicketCookieGenerator.setCookiePath(cookiePath);
             this.pathPopulated = true;
@@ -79,11 +78,9 @@ public final class InitialFlowSetupAction extends AbstractAction {
         context.getFlowScope().put(
             "ticketGrantingTicketId", this.ticketGrantingTicketCookieGenerator.retrieveCookieValue(request));
         context.getFlowScope().put(
-            "warnCookieValue",
-            Boolean.valueOf(this.warnCookieGenerator.retrieveCookieValue(request)));
+            "warnCookieValue",Boolean.valueOf(this.warnCookieGenerator.retrieveCookieValue(request)));
 
-        final Service service = WebUtils.getService(this.argumentExtractors,
-            context);
+        final Service service = WebUtils.getService(this.argumentExtractors,context);
 
         if (service != null && logger.isDebugEnabled()) {
             logger.debug("Placing service in FlowScope: " + service.getId());
