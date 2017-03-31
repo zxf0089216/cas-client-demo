@@ -2,6 +2,8 @@ package com.hundsun.cas.client;
 
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
+
+import com.hundsun.cas.client.util.LocalIpUtil;
 import org.jasig.cas.client.authentication.AuthenticationFilter;
 import org.jasig.cas.client.session.SingleSignOutFilter;
 import org.jasig.cas.client.session.SingleSignOutHttpSessionListener;
@@ -14,6 +16,10 @@ public class CasClientInitializerImpl implements CasClientInitializer {
     @Override
     public void init(ServletContext servletContext) {
         if (CasClientConfiguration.isEnable()) {
+//            String casServerUrlPrefix = LocalIpUtil.replaceTrueIpIfLocalhost(CasClientConfiguration.getCasServerUrlPrefix());
+//            String casServerLoginUrl = LocalIpUtil.replaceTrueIpIfLocalhost(CasClientConfiguration.getCasServerLoginUrl());
+//            String serverName = LocalIpUtil.replaceTrueIpIfLocalhost(CasClientConfiguration.getServerName());
+
             String casServerUrlPrefix = CasClientConfiguration.getCasServerUrlPrefix();
             String casServerLoginUrl = CasClientConfiguration.getCasServerLoginUrl();
             String serverName = CasClientConfiguration.getServerName();

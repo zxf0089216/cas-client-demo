@@ -12,8 +12,8 @@ public class FilterRegexTest {
     public void test1() throws Exception {
 //        String filterRegex = "/scripts/*.js;/styles/*;/images/*;*.json";
 //        String filterRegex = "/api/v1/*;(!(*.json))";
-//        String filterRegex = "/api/v1;*.css;*.js";
-        String filterRegex = "/api/v1;*.css;?<!*.json";
+        String filterRegex = "/api/v1/*;*.css;*.js";
+//        String filterRegex = "/api/v1;*.css;?<!*.json";
 //        String filterRegex = "/;/scripts/*;/styles/*;/images/*";
         String t2 = "*/js/*;/scripts/*;";
         String t3 = "\\;\\scripts\\*";
@@ -24,7 +24,8 @@ public class FilterRegexTest {
 //        String test = "/pages/scripts/xx.js";
 //        String test = "/scripts/xx.js";
 //        String test = "1.json";
-        String test = "/api/v2/11.js";
+//        String test = "/cas/api/v2/11.js";
+        String test = "/acm/api/v1/account/888";
         String regStr = CommonUtils.assemblyRegexStr(filterRegex);
         System.out.println("正则表达式: "+regStr);
         Pattern pattern = Pattern.compile(regStr);

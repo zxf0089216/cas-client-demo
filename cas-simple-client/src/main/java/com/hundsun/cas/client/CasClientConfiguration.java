@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import com.hundsun.cas.client.util.LocalIpUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,6 +59,7 @@ public class CasClientConfiguration {
             config.serverUrl = serverUrlValue;
             logger.debug("Property [cas.server_url] loaded , value is [{}]",config.serverUrl);
         }
+        config.serverUrl=LocalIpUtil.replaceTrueIpIfLocalhost(config.serverUrl);
 
         String appUrlValue = props.getProperty("cas.app_url");
         if (isEmpty(appUrlValue)){
@@ -66,6 +68,7 @@ public class CasClientConfiguration {
             config.appUrl = appUrlValue;
             logger.debug("Property [cas.app_url] loaded , value is [{}]",config.appUrl);
         }
+        config.appUrl=LocalIpUtil.replaceTrueIpIfLocalhost(config.appUrl);
 
         String logoutUrlValue = props.getProperty("cas.logout_url");
         if (isEmpty(logoutUrlValue)){
@@ -74,6 +77,7 @@ public class CasClientConfiguration {
             config.logoutUrl = logoutUrlValue;
             logger.debug("Property [cas.logout_url] loaded , value is [{}]",config.logoutUrl);
         }
+        config.logoutUrl=LocalIpUtil.replaceTrueIpIfLocalhost(config.logoutUrl);
 
         String filterMappingValue = props.getProperty("cas.filter_mapping");
         if (isEmpty(filterMappingValue)){
@@ -138,9 +142,9 @@ public class CasClientConfiguration {
 
     private static class CasConfig {
         public Boolean isEnbale = true;
-        public String appUrl = "http://cas-client:8080";
-        public String logoutUrl = "http://cas-client:8080/client1";
-        public String serverUrl = "http://cas-server:8488/cas";
+        public String appUrl = "http://localhost";
+        public String logoutUrl = "http://localhost/acm";
+        public String serverUrl = "http://localhost/cas";
         public String filterMapping = "/*";
         public String filterEncoding = "UTF-8";
         public String filterExclusions = "";
