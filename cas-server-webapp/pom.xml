@@ -8,7 +8,7 @@
   <groupId>org.jasig.cas</groupId>
   <artifactId>cas-server-webapp</artifactId>
   <packaging>war</packaging>
-  <name>Jasig CAS Web Application</name>
+  <name>cas-server-webapp</name>
   <dependencies>
 
     <dependency>

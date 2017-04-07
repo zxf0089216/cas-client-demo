@@ -61,6 +61,7 @@ public class CasClientConfiguration {
         }
         config.serverUrl=LocalIpUtil.replaceTrueIpIfLocalhost(config.serverUrl);
 
+
         String appUrlValue = props.getProperty("cas.app_url");
         if (isEmpty(appUrlValue)){
             logger.debug("Property [cas.app_url] not found.  Using default value [{}]",config.appUrl);

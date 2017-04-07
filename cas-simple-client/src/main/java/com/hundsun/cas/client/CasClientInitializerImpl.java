@@ -16,9 +16,6 @@ public class CasClientInitializerImpl implements CasClientInitializer {
     @Override
     public void init(ServletContext servletContext) {
         if (CasClientConfiguration.isEnable()) {
-//            String casServerUrlPrefix = LocalIpUtil.replaceTrueIpIfLocalhost(CasClientConfiguration.getCasServerUrlPrefix());
-//            String casServerLoginUrl = LocalIpUtil.replaceTrueIpIfLocalhost(CasClientConfiguration.getCasServerLoginUrl());
-//            String serverName = LocalIpUtil.replaceTrueIpIfLocalhost(CasClientConfiguration.getServerName());
 
             String casServerUrlPrefix = CasClientConfiguration.getCasServerUrlPrefix();
             String casServerLoginUrl = CasClientConfiguration.getCasServerLoginUrl();
@@ -27,15 +24,15 @@ public class CasClientInitializerImpl implements CasClientInitializer {
             String encoding = CasClientConfiguration.getFilterEncoding();
             String filterExclusions = CasClientConfiguration.getFilterExclusions();
 
+            // SingleSignOutHttpSessionListener
             servletContext.addListener(SingleSignOutHttpSessionListener.class);
 
+            // SingleSignOutFilter
             FilterRegistration.Dynamic singleSignOutFilter = servletContext.addFilter("SingleSignOutFilter", SingleSignOutFilter.class);
             singleSignOutFilter.addMappingForUrlPatterns(null, false, filterMapping);
 
-            //==========================start======================================
-//            FilterRegistration.Dynamic authenticationFilter = servletContext.addFilter("AuthenticationFilter", AuthenticationFilter.class);
+            // AuthenticationFilter
             FilterRegistration.Dynamic authenticationFilter = servletContext.addFilter("AuthenticationFilter", CasClientAuthenticationFilter.class);
-            //==========================end======================================
             authenticationFilter.setInitParameter("casServerLoginUrl", casServerLoginUrl);
             authenticationFilter.setInitParameter("serverName", serverName);
             authenticationFilter.setInitParameter("exclusions", filterExclusions);
@@ -57,4 +54,5 @@ public class CasClientInitializerImpl implements CasClientInitializer {
             assertionThreadLocalFilter.addMappingForUrlPatterns(null, false, filterMapping);
         }
     }
+
 }

@@ -6,9 +6,9 @@ package com.hundsun.cas.client; /**
  * Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a
  * copy of the License at:
- *
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -32,6 +32,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.regex.Pattern;
 
 /**
@@ -70,7 +71,7 @@ public class CasClientAuthenticationFilter extends AbstractCasFilter {
 
     /** match exclude uri */
     private Pattern excludeUriPattern = null;
-    
+
     private GatewayResolver gatewayStorage = new DefaultGatewayResolverImpl();
 
     protected void initInternal(final FilterConfig filterConfig) throws ServletException {
@@ -82,17 +83,17 @@ public class CasClientAuthenticationFilter extends AbstractCasFilter {
             log.trace("Loaded renew parameter: " + this.renew);
             setGateway(parseBoolean(getPropertyFromInitParams(filterConfig, "gateway", "false")));
             log.trace("Loaded gateway parameter: " + this.gateway);
-            
+
             //设置需要过滤拦截地址
             setExclusions(getPropertyFromInitParams(filterConfig, "exclusions", null));
-            
+
             final String gatewayStorageClass = getPropertyFromInitParams(filterConfig, "gatewayStorageClass", null);
 
             if (gatewayStorageClass != null) {
                 try {
                     this.gatewayStorage = (GatewayResolver) Class.forName(gatewayStorageClass).newInstance();
                 } catch (final Exception e) {
-                    log.error(e,e);
+                    log.error(e, e);
                     throw new ServletException(e);
                 }
             }
@@ -111,18 +112,18 @@ public class CasClientAuthenticationFilter extends AbstractCasFilter {
         final Assertion assertion = session != null ? (Assertion) session.getAttribute(CONST_CAS_ASSERTION) : null;
 
         // 判断是否需要过滤
-        if(isExcluded(request)){
-        	filterChain.doFilter(request, response);
-			return;
-		}
-        
+        if (isExcluded(request)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         if (assertion != null) {
             filterChain.doFilter(request, response);
             return;
         }
 
         final String serviceUrl = constructServiceUrl(request, response);
-        final String ticket = CommonUtils.safeGetParameter(request,getArtifactParameterName());
+        final String ticket = CommonUtils.safeGetParameter(request, getArtifactParameterName());
         final boolean wasGatewayed = this.gatewayStorage.hasGatewayedAlready(request, serviceUrl);
 
         if (CommonUtils.isNotBlank(ticket) || wasGatewayed) {
@@ -150,9 +151,41 @@ public class CasClientAuthenticationFilter extends AbstractCasFilter {
             log.debug("redirecting to \"" + urlToRedirectTo + "\"");
         }
 
-        response.sendRedirect(urlToRedirectTo);
+        //=================old start==================
+//        response.sendRedirect(urlToRedirectTo);
+        log.debug("判断拼接的过程,参数, 最终拼接好的地址为: \"" + urlToRedirectTo + "\"");
+
+        //response.sendRedirect(urlToRedirectTo);
+        String url = request.getRequestURL().toString();
+        log.debug("url------request.getRequestURL().toString()=---------:" + url);
+        String contextPath = request.getContextPath();
+        log.debug("contextPath ---------request.getContextPath()=-------:" + contextPath);
+
+        url = url.substring(0, (url.indexOf(contextPath) + contextPath.length()));
+        log.debug("url = ------session消失,截取到项目的url---" + url);
+        String urls = urlToRedirectTo;
+
+        //====================mine start=========================
+        //参考:http://blog.csdn.net/lovesummerforever/article/details/38732595
+        //判断是否是第一次转到.
+        if ("".equals(url) || url == null || url.length() == 0) {
+            log.debug("url--第一次为空,不截取-----" + url);
+            urls = urlToRedirectTo;
+            //response.sendRedirect(urlToRedirectTo);
+        } else {
+            urls = urls.substring(0, (urls.indexOf("service=") + 8)) + URLEncoder.encode(url, "UTF-8");
+        }
+
+        log.debug("urls --最终输入到浏览器的地址是-----------" + urls);
+
+        response.setContentType("text/html;charset=UTF-8");
+        response.getWriter().write("<script languge='javascript'>window.location.href='" + urls + "/'</script>");
+        //====================mine end=========================
+        //=================old start===================
+//        response.sendRedirect(urlToRedirectTo);
+        //=================old end===================
     }
-    
+
     /**
      * 判断请求地址是否拦截
      *
@@ -161,18 +194,18 @@ public class CasClientAuthenticationFilter extends AbstractCasFilter {
      * @throws IOException
      * @throws ServletException
      */
-    private boolean isExcluded(HttpServletRequest request) throws IOException,ServletException {
-        if (excludeUriPattern ==null){
+    private boolean isExcluded(HttpServletRequest request) throws IOException, ServletException {
+        if (excludeUriPattern == null) {
             return false;
         }
 
         String requestURI = request.getRequestURI();
-        if(CommonUtils.isNotBlank(requestURI)){
-            requestURI = requestURI.replace(request.getContextPath(),"");
+        if (CommonUtils.isNotBlank(requestURI)) {
+            requestURI = requestURI.replace(request.getContextPath(), "");
         }
 
         return excludeUriPattern.matcher(requestURI).matches();
-	}
+    }
 
     public final void setRenew(final boolean renew) {
         this.renew = renew;
@@ -185,17 +218,17 @@ public class CasClientAuthenticationFilter extends AbstractCasFilter {
     public final void setCasServerLoginUrl(final String casServerLoginUrl) {
         this.casServerLoginUrl = casServerLoginUrl;
     }
-    
+
     public final void setGatewayStorage(final GatewayResolver gatewayStorage) {
-    	this.gatewayStorage = gatewayStorage;
+        this.gatewayStorage = gatewayStorage;
     }
 
-	public void setExclusions(String exclusions) {
+    public void setExclusions(String exclusions) {
 
-        if (CommonUtils.isNotBlank(exclusions)){
+        if (CommonUtils.isNotBlank(exclusions)) {
             String excludeRegex = com.hundsun.cas.client.util.CommonUtils.assemblyRegexStr(exclusions);
             excludeUriPattern = Pattern.compile(excludeRegex);
         }
-	}
-    
+    }
+
 }
