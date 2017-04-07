@@ -16,12 +16,22 @@ public class OAuthServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String ret = request.getParameter("ret");
-        String msg = request.getParameter("msg");
-        if (ret == null) {
-            ret = "0";
-        }
-        String result = "<html><head><script language='javascript'>" + "parent.logincallback({'ret':" + ret + ",'msg':'" + msg + "'});" + "</script></head> </html>";
+//        String ret = request.getParameter("ret");
+//        String msg = request.getParameter("msg");
+//        if (ret == null) {
+//            ret = "0";
+//        }
+//        String result = "<html><head><script language='javascript'>" + "parent.logincallback({'ret':" + ret + ",'msg':'" + msg + "'});" + "</script></head> </html>";
+//        response.setContentType("text/html;charset=UTF-8");
+//        try {
+//            PrintWriter out = response.getWriter();
+//            out.print(result);
+//            out.flush();
+//            out.close();
+//        } catch (Exception e) {
+//        }
+
+        String result = "<html><head><script language='javascript'>" + "window.location.href=www.baidu.com" + "</script></head> </html>";
         response.setContentType("text/html;charset=UTF-8");
         try {
             PrintWriter out = response.getWriter();

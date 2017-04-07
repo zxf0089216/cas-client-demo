@@ -45,7 +45,7 @@ import java.util.regex.Pattern;
  * <li><code>renew</code> - true/false on whether to use renew or not.</li>
  * <li><code>gateway</code> - true/false on whether to use gateway or not.</li>
  * </ul>
- *
+ * <p>
  * <p>Please see AbstractCasFilter for additional properties.</p>
  *
  * @author Scott Battaglia
@@ -69,7 +69,9 @@ public class CasClientAuthenticationFilter extends AbstractCasFilter {
      */
     private boolean gateway = false;
 
-    /** match exclude uri */
+    /**
+     * match exclude uri
+     */
     private Pattern excludeUriPattern = null;
 
     private GatewayResolver gatewayStorage = new DefaultGatewayResolverImpl();
@@ -152,35 +154,28 @@ public class CasClientAuthenticationFilter extends AbstractCasFilter {
         }
 
         //=================old start==================
-//        response.sendRedirect(urlToRedirectTo);
-        log.debug("判断拼接的过程,参数, 最终拼接好的地址为: \"" + urlToRedirectTo + "\"");
+//        String header = request.getHeader("x-requested-with");
+//        if (header != null && header.equals("XMLHttpRequest")) {
+            String url = request.getRequestURL().toString();
+            String contextPath = request.getContextPath();
 
-        //response.sendRedirect(urlToRedirectTo);
-        String url = request.getRequestURL().toString();
-        log.debug("url------request.getRequestURL().toString()=---------:" + url);
-        String contextPath = request.getContextPath();
-        log.debug("contextPath ---------request.getContextPath()=-------:" + contextPath);
+            url = url.substring(0, (url.indexOf(contextPath) + contextPath.length()));
+            String urls = urlToRedirectTo;
 
-        url = url.substring(0, (url.indexOf(contextPath) + contextPath.length()));
-        log.debug("url = ------session消失,截取到项目的url---" + url);
-        String urls = urlToRedirectTo;
-
-        //====================mine start=========================
-        //参考:http://blog.csdn.net/lovesummerforever/article/details/38732595
-        //判断是否是第一次转到.
-        if ("".equals(url) || url == null || url.length() == 0) {
-            log.debug("url--第一次为空,不截取-----" + url);
-            urls = urlToRedirectTo;
-            //response.sendRedirect(urlToRedirectTo);
-        } else {
-            urls = urls.substring(0, (urls.indexOf("service=") + 8)) + URLEncoder.encode(url, "UTF-8");
-        }
-
-        log.debug("urls --最终输入到浏览器的地址是-----------" + urls);
-
-        response.setContentType("text/html;charset=UTF-8");
-        response.getWriter().write("<script languge='javascript'>window.location.href='" + urls + "/'</script>");
+            //====================mine start=========================
+            //参考:http://blog.csdn.net/lovesummerforever/article/details/38732595
+            if (url == null || "".equals(url) || url.length() == 0) {
+                urls = urlToRedirectTo;
+            } else {
+                urls = urls.substring(0, (urls.indexOf("service=") + 8)) + URLEncoder.encode(url, "UTF-8");
+            }
+            response.setContentType("text/html;charset=UTF-8");
+            response.getWriter().write("<script languge='javascript'>window.location.href='" + urls + "/'</script>");
+//            response.getWriter().write("<script languge='javascript'>window.parent.location.href='" + urls + "/'</script>");
+            response.getWriter().flush();
+//        }
         //====================mine end=========================
+
         //=================old start===================
 //        response.sendRedirect(urlToRedirectTo);
         //=================old end===================
