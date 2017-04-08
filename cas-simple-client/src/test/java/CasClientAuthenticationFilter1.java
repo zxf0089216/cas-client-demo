@@ -1,4 +1,4 @@
-package com.hundsun.cas.client; /**
+/**
  * Licensed to Jasig under one or more contributor license
  * agreements. See the NOTICE file distributed with this work
  * for additional information regarding copyright ownership.
@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.regex.Pattern;
 
 /**
@@ -48,7 +49,7 @@ import java.util.regex.Pattern;
  * @version $Revision: 11768 $ $Date: 2007-02-07 15:44:16 -0500 (Wed, 07 Feb 2007) $
  * @since 3.0
  */
-public class CasClientAuthenticationFilter extends AbstractCasFilter {
+public class CasClientAuthenticationFilter1 extends AbstractCasFilter {
 
     /**
      * The URL to the CAS Server login.
@@ -150,13 +151,34 @@ public class CasClientAuthenticationFilter extends AbstractCasFilter {
         }
 
         //====================mine start=========================
-        if (isAjaxRequest(request)) {
-            String casLogoutUrl = CasClientConfiguration.getCasLogoutUrl();
+        String header = request.getHeader("x-requested-with");
+        if (header != null && header.equalsIgnoreCase("XMLHttpRequest")) {
+            log.debug("request is a XMLHttpRequest...");
 
+            String url = request.getRequestURL().toString();
+            String contextPath = request.getContextPath();
+            log.debug("contextPath=" + contextPath);
+
+            url = url.substring(0, (url.indexOf(contextPath) + contextPath.length()));
+            log.debug("url = ------session消失,截取到项目的url---" + url);
+            String urls = urlToRedirectTo;
+
+            //判断是否是第一次转到.
+            if (url == null || "".equals(url) || url.length() == 0) {
+                log.debug("url--第一次为空,不截取-----" + url);
+            } else {
+                urls = urls.substring(0, (urls.indexOf("service=") + 8)) + URLEncoder.encode(url, "UTF-8");
+            }
+
+            log.debug("urls --最终输入到浏览器的地址是-----------" + urls);
             response.setContentType("application/json; charset=UTF-8");
             PrintWriter writer = response.getWriter();
-            writer.print("{\"error_no\":400,\"error_code\":\"sys_session_shutdown\",\"error_info\":\"do not login or session timeout\",\"location\":\"" + casLogoutUrl + "\"}");
+            writer.print("{\"error\":\"session_timeout\",\"location\":\"" + urls + "\"}");
             writer.flush();
+//            response.setContentType("text/html;charset=UTF-8");
+//            response.getWriter().print("<script languge='javascript'>window.location.href='" + urls + "/'</script>");
+//            response.getWriter().write("<script languge='javascript'>window.parent.location.href='" + urls + "/'</script>");
+//            response.getWriter().flush();
         } else {
             response.sendRedirect(urlToRedirectTo);
         }
@@ -205,27 +227,11 @@ public class CasClientAuthenticationFilter extends AbstractCasFilter {
     }
 
     public void setExclusions(String exclusions) {
+
         if (CommonUtils.isNotBlank(exclusions)) {
             String excludeRegex = com.hundsun.cas.client.util.CommonUtils.assemblyRegexStr(exclusions);
             excludeUriPattern = Pattern.compile(excludeRegex);
         }
-    }
-
-    private Boolean isAjaxRequest(HttpServletRequest request) {
-        String header = request.getHeader("x-requested-with");
-        if (header != null && header.equalsIgnoreCase("XMLHttpRequest")) {
-            return true;
-        }
-
-        String requestURI = request.getRequestURI();
-        if (log.isDebugEnabled()){
-            log.debug("requestURI="+requestURI);
-        }
-        if (requestURI != null && requestURI.length() > 0 && requestURI.endsWith(".json")) {
-            return true;
-        }
-
-        return false;
     }
 
 }

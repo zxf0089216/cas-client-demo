@@ -31,8 +31,10 @@ public class OAuthServlet extends HttpServlet {
 //        } catch (Exception e) {
 //        }
 
-        String result = "<html><head><script language='javascript'>" + "window.location.href=www.baidu.com" + "</script></head> </html>";
-        response.setContentType("text/html;charset=UTF-8");
+//        String result = "<html><head><script language='javascript'>alert(1)</script></head> </html>";
+//        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json; charset=UTF-8");
+        String result = "{\"status:\":\"success\"}";
         try {
             PrintWriter out = response.getWriter();
             out.print(result);

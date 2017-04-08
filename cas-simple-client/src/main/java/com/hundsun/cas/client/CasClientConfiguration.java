@@ -1,12 +1,12 @@
 package com.hundsun.cas.client;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
 import com.hundsun.cas.client.util.LocalIpUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class CasClientConfiguration {
 
@@ -144,7 +144,7 @@ public class CasClientConfiguration {
     private static class CasConfig {
         public Boolean isEnbale = true;
         public String appUrl = "http://localhost";
-        public String logoutUrl = "http://localhost/acm";
+        public String logoutUrl = appUrl;
         public String serverUrl = "http://localhost/cas";
         public String filterMapping = "/*";
         public String filterEncoding = "UTF-8";
