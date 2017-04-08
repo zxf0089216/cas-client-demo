@@ -153,6 +153,7 @@ public class CasClientAuthenticationFilter extends AbstractCasFilter {
         if (isAjaxRequest(request)) {
             String casLogoutUrl = CasClientConfiguration.getCasLogoutUrl();
 
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.setContentType("application/json; charset=UTF-8");
             PrintWriter writer = response.getWriter();
             writer.print("{\"error_no\":400,\"error_code\":\"sys_session_shutdown\",\"error_info\":\"do not login or session timeout\",\"location\":\"" + casLogoutUrl + "\"}");
@@ -218,9 +219,6 @@ public class CasClientAuthenticationFilter extends AbstractCasFilter {
         }
 
         String requestURI = request.getRequestURI();
-        if (log.isDebugEnabled()){
-            log.debug("requestURI="+requestURI);
-        }
         if (requestURI != null && requestURI.length() > 0 && requestURI.endsWith(".json")) {
             return true;
         }
