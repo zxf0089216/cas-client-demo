@@ -55,8 +55,12 @@
                 console.log(data)
                 console.log(textStatus)
                 console.log(jqXHR)
-                if (data && data.error_no==400) {
-                    window.location.href=data.location;
+                if (data && data.error_no && data.error_no==400) {
+                    if( window.top != window.self ){
+                        window.top.location = data.location;
+                    }else{
+                        window.location.href=data.location;
+                    }
                 }
             },
             error: function (xhr, textStatus) {
