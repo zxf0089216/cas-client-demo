@@ -1,5 +1,6 @@
 package com.hundsun.cas.client;
 
+import java.io.File;
 import java.util.Set;
 import javax.servlet.ServletContainerInitializer;
 import javax.servlet.ServletContext;
@@ -19,6 +20,9 @@ public class CasClientServletContainerInitializer implements ServletContainerIni
         if (webApplicationInitializerClassSet == null || webApplicationInitializerClassSet.size() == 0) {
             return;
         }
+
+        // initilize coonfiguration
+        CasClientConfiguration.init(servletContext);
 
         for (Class<?> webApplicationInitializerClass : webApplicationInitializerClassSet) {
             try {

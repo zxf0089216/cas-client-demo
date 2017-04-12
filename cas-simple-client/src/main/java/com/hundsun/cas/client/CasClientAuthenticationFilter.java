@@ -156,7 +156,7 @@ public class CasClientAuthenticationFilter extends AbstractCasFilter {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.setContentType("application/json; charset=UTF-8");
             PrintWriter writer = response.getWriter();
-            writer.print("{\"error_no\":400,\"error_code\":\"sys_session_shutdown\",\"error_info\":\"do not login or session timeout\",\"location\":\"" + casLogoutUrl + "\"}");
+            writer.print("{\"error_no\":"+HttpServletResponse.SC_BAD_REQUEST+",\"error_code\":\"sys_session_shutdown\",\"error_info\":\"do not login or session timeout\",\"location\":\"" + casLogoutUrl + "\"}");
             writer.flush();
         } else {
             response.sendRedirect(urlToRedirectTo);
