@@ -1,3 +1,5 @@
+package com.hundsun.cas.client;
+
 import com.hundsun.cas.client.util.CommonUtils;
 import org.junit.Test;
 

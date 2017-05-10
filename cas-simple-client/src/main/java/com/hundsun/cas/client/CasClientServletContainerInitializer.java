@@ -21,7 +21,6 @@ public class CasClientServletContainerInitializer implements ServletContainerIni
             return;
         }
 
-        // initilize coonfiguration
         CasClientConfiguration.init(servletContext);
 
         for (Class<?> webApplicationInitializerClass : webApplicationInitializerClassSet) {

@@ -149,7 +149,6 @@ public class CasClientAuthenticationFilter extends AbstractCasFilter {
             log.debug("redirecting to \"" + urlToRedirectTo + "\"");
         }
 
-        //====================mine start=========================
         if (isAjaxRequest(request)) {
             String casLogoutUrl = CasClientConfiguration.getCasLogoutUrl();
 
@@ -161,11 +160,6 @@ public class CasClientAuthenticationFilter extends AbstractCasFilter {
         } else {
             response.sendRedirect(urlToRedirectTo);
         }
-        //====================mine end=========================
-
-        //=================old start===================
-//        response.sendRedirect(urlToRedirectTo);
-        //=================old end===================
     }
 
     /**

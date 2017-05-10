@@ -1,3 +1,5 @@
+package com.hundsun.cas.client;
+
 import com.hundsun.cas.client.util.LocalIpUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

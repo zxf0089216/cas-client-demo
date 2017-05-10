@@ -17,26 +17,18 @@ public class LocalIpUtil {
 
     private static final String WINDOWS = "WINDOWS";
 
-    public static void main(String[] args) {
-        String url = "http://127.0.0.1:8080/client1";
-////        String url = "http://localhost:8080/client1";
-//        String localIp = getLocalIp();
-//        System.out.println(localIp);
-//        if (url.contains("localhost") || url.contains("127.0.0.1")) {
-//            System.out.println("有localhost或者127.0.0.1");
-//            url=url.replaceAll("localhost", localIp).replaceAll("127.0.0.1", localIp);
-//        }
-//        System.out.println(url);
-
-        System.out.println(replaceTrueIpIfLocalhost(url));
-    }
-
-    public static String replaceTrueIpIfLocalhost(String url){
+    public static String replaceTrueIpIfLocalhost(String url) {
         String localIp = getLocalIp();
-//        String localIp = "192.168.122.175";
-        if (url.contains("localhost") || url.contains("127.0.0.1")) {
-            url=url.replaceAll("localhost", localIp).replaceAll("127.0.0.1", localIp);
+
+        if (localIp == null || "".equals(localIp.trim())) {
+            logger.warn("can not get local host,so replace true Ip for Localhost failed!");
+            return url;
         }
+
+        if (url.contains("localhost") || url.contains("127.0.0.1")) {
+            url = url.replaceAll("localhost", localIp).replaceAll("127.0.0.1", localIp);
+        }
+
         return url;
     }
 
@@ -47,38 +39,41 @@ public class LocalIpUtil {
      */
     private static String getLocalIp() {
         String os = System.getProperty("os.name").toUpperCase();
-        String address = "";
         if (os.contains(WINDOWS)) {
-            try {
-                address = InetAddress.getLocalHost().getHostAddress();
-            } catch (UnknownHostException e) {
-                logger.error("windows获取本地IP出错", e);
-            }
+            return getWindowIp();
         } else {
-            address = getLinuxIP();
+            return getLinuxIP();
         }
-        return address;
     }
 
-    /*
-     * 获取非windows类型服务器IP地址
+    /**
+     * 获取Linux类型服务器IP地址
+     *
+     * @return
      */
     private static String getLinuxIP() {
         String address = "";
         Enumeration<NetworkInterface> allNetInterfaces;
         try {
             allNetInterfaces = NetworkInterface.getNetworkInterfaces();
-            InetAddress ip = null;
+            InetAddress ip;
+
             while (allNetInterfaces.hasMoreElements()) {
-                NetworkInterface netInterface = (NetworkInterface) allNetInterfaces.nextElement();
+                NetworkInterface netInterface = allNetInterfaces.nextElement();
+
                 if (!netInterface.isUp() || netInterface.isLoopback() || netInterface.isVirtual()) {
                     continue;
                 }
+
                 Enumeration<InetAddress> addresses = netInterface.getInetAddresses();
+
                 while (addresses.hasMoreElements()) {
-                    ip = (InetAddress) addresses.nextElement();
-                    if (ip.isLoopbackAddress())
+                    ip = addresses.nextElement();
+
+                    if (ip.isLoopbackAddress()) {
                         continue;
+                    }
+
                     if (ip != null && ip instanceof Inet4Address) {
                         address = ip.getHostAddress();
                     }
@@ -88,5 +83,40 @@ public class LocalIpUtil {
             logger.error("linux获取本地IP出错", e);
         }
         return address;
+    }
+
+    private static String getWindowIp() {
+        Enumeration allNetInterfaces;
+        String ipLocalAddr = null;
+        InetAddress ip;
+
+        try {
+            allNetInterfaces = NetworkInterface.getNetworkInterfaces();
+            while (allNetInterfaces.hasMoreElements()) {
+                NetworkInterface netInterface = (NetworkInterface) allNetInterfaces.nextElement();
+
+                if (!netInterface.isUp()
+                        || netInterface.isLoopback()
+                        || netInterface.isVirtual()
+                        || netInterface.getDisplayName().indexOf("VMware") != -1) { // filter vmware interface
+                    continue;
+                }
+
+                Enumeration addresses = netInterface.getInetAddresses();
+                while (addresses.hasMoreElements()) {
+                    ip = (InetAddress) addresses.nextElement();
+
+                    if (ip != null && ip instanceof Inet4Address) {
+                        ipLocalAddr = ip.getHostAddress();
+                    }
+
+                }
+            }
+        } catch (SocketException e) {
+            logger.error("get windows ip error", e);
+            return null;
+        }
+
+        return ipLocalAddr;
     }
 }

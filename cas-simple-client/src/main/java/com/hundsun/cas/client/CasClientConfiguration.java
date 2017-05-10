@@ -21,11 +21,6 @@ public class CasClientConfiguration {
 
     public static final String CONFIG_NAME = "cas.properties";
 
-//    static {
-//        init(CONFIG_NAME);
-//    }
-
-    //    public static void init(String configFile) {
     public static void init(ServletContext servletContext) {
         String configFilePath=CONFIG_NAME;
         InputStream is = null;
