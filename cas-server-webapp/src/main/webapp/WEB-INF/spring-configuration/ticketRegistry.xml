@@ -24,79 +24,83 @@
        xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
-    <!--<bean id="ticketRegistry" class="org.jasig.cas.ticket.registry.DefaultTicketRegistry"/>-->
+    <!-- ####################################非集群模式 start##############################################-->
+    <bean id="ticketRegistry" class="org.jasig.cas.ticket.registry.DefaultTicketRegistry"/>
 
-    <!--<bean id="ticketRegistryCleaner" class="org.jasig.cas.ticket.registry.support.DefaultTicketRegistryCleaner"-->
-          <!--p:ticketRegistry-ref="ticketRegistry"/>-->
+    <bean id="ticketRegistryCleaner" class="org.jasig.cas.ticket.registry.support.DefaultTicketRegistryCleaner"
+          p:ticketRegistry-ref="ticketRegistry"/>
 
-    <!--<bean id="jobDetailTicketRegistryCleaner"-->
-          <!--class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"-->
-          <!--p:targetObject-ref="ticketRegistryCleaner"-->
-          <!--p:targetMethod="clean"/>-->
+    <bean id="jobDetailTicketRegistryCleaner"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"
+          p:targetObject-ref="ticketRegistryCleaner"
+          p:targetMethod="clean"/>
 
-    <!--<bean id="triggerJobDetailTicketRegistryCleaner" class="org.springframework.scheduling.quartz.SimpleTriggerBean"-->
-          <!--p:jobDetail-ref="jobDetailTicketRegistryCleaner"-->
-          <!--p:startDelay="20000"-->
-          <!--p:repeatInterval="5000000"/>-->
+    <bean id="triggerJobDetailTicketRegistryCleaner" class="org.springframework.scheduling.quartz.SimpleTriggerBean"
+          p:jobDetail-ref="jobDetailTicketRegistryCleaner"
+          p:startDelay="20000"
+          p:repeatInterval="5000000"/>
+    <!-- ##################################非集群模式 end################################################-->
 
-    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-        <property name="configLocation" value="classpath:ehcache-replicated.xml" />
-        <!--<property name="shared" value="false" />-->
-        <property name="shared" value="true" />
-        <property name="cacheManagerName" value="ticketRegistryCacheManager" />
-    </bean>
+    <!-- ##################################集群模式 start################################################-->
+    <!--<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">-->
+        <!--<property name="configLocation" value="classpath:ehcache-replicated.xml" />-->
+        <!--&lt;!&ndash;<property name="shared" value="false" />&ndash;&gt;-->
+        <!--<property name="shared" value="true" />-->
+        <!--<property name="cacheManagerName" value="ticketRegistryCacheManager" />-->
+    <!--</bean>-->
 
-    <bean id="ticketRegistry" class="org.jasig.cas.ticket.registry.EhCacheTicketRegistry"
-          p:serviceTicketsCache-ref="serviceTicketsCache"
-          p:ticketGrantingTicketsCache-ref="ticketGrantingTicketsCache" />
+    <!--<bean id="ticketRegistry" class="org.jasig.cas.ticket.registry.EhCacheTicketRegistry"-->
+          <!--p:serviceTicketsCache-ref="serviceTicketsCache"-->
+          <!--p:ticketGrantingTicketsCache-ref="ticketGrantingTicketsCache" />-->
 
-    <bean id="abstractTicketCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean" abstract="true">
-        <property name="cacheManager" ref="cacheManager" />
-        <property name="diskExpiryThreadIntervalSeconds" value="0" />
-        <property name="diskPersistent" value="false" />
-        <property name="eternal" value="false" />
-        <property name="maxElementsInMemory" value="10000" />
-        <property name="maxElementsOnDisk" value="0" />
-        <property name="memoryStoreEvictionPolicy" value="LRU" />
-        <property name="overflowToDisk" value="false" />
-        <property name="bootstrapCacheLoader">
-            <ref local="ticketCacheBootstrapCacheLoader"/>
-        </property>
-    </bean>
+    <!--<bean id="abstractTicketCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean" abstract="true">-->
+        <!--<property name="cacheManager" ref="cacheManager" />-->
+        <!--<property name="diskExpiryThreadIntervalSeconds" value="0" />-->
+        <!--<property name="diskPersistent" value="false" />-->
+        <!--<property name="eternal" value="false" />-->
+        <!--<property name="maxElementsInMemory" value="10000" />-->
+        <!--<property name="maxElementsOnDisk" value="0" />-->
+        <!--<property name="memoryStoreEvictionPolicy" value="LRU" />-->
+        <!--<property name="overflowToDisk" value="false" />-->
+        <!--<property name="bootstrapCacheLoader">-->
+            <!--<ref local="ticketCacheBootstrapCacheLoader"/>-->
+        <!--</property>-->
+    <!--</bean>-->
 
-    <bean id="serviceTicketsCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean" parent="abstractTicketCache">
-        <property name="cacheName" value="org.jasig.cas.ticket.ServiceTicket" />
-        <property name="cacheEventListeners">
-            <ref local="ticketRMISynchronousCacheReplicator"/>
-        </property>
-        <property name="timeToIdle" value="0" />
-        <property name="timeToLive" value="300" />
-    </bean>
+    <!--<bean id="serviceTicketsCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean" parent="abstractTicketCache">-->
+        <!--<property name="cacheName" value="org.jasig.cas.ticket.ServiceTicket" />-->
+        <!--<property name="cacheEventListeners">-->
+            <!--<ref local="ticketRMISynchronousCacheReplicator"/>-->
+        <!--</property>-->
+        <!--<property name="timeToIdle" value="0" />-->
+        <!--<property name="timeToLive" value="300" />-->
+    <!--</bean>-->
 
-    <bean id="ticketGrantingTicketsCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean" >
-        <property name="cacheName" value="org.jasig.cas.ticket.TicketGrantingTicket" />
-        <property name="cacheEventListeners">
-            <ref local="ticketRMIAsynchronousCacheReplicator"/>
-        </property>
-        <property name="timeToIdle" value="7201" />
-        <property name="timeToLive" value="0" />
-    </bean>
+    <!--<bean id="ticketGrantingTicketsCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean" >-->
+        <!--<property name="cacheName" value="org.jasig.cas.ticket.TicketGrantingTicket" />-->
+        <!--<property name="cacheEventListeners">-->
+            <!--<ref local="ticketRMIAsynchronousCacheReplicator"/>-->
+        <!--</property>-->
+        <!--<property name="timeToIdle" value="7201" />-->
+        <!--<property name="timeToLive" value="0" />-->
+    <!--</bean>-->
 
-    <bean id="ticketRMISynchronousCacheReplicator" class="net.sf.ehcache.distribution.RMISynchronousCacheReplicator">
-        <constructor-arg name="replicatePuts" value="true"/>
-        <constructor-arg name="replicatePutsViaCopy" value="true"/>
-        <constructor-arg name="replicateUpdates" value="true"/>
-        <constructor-arg name="replicateUpdatesViaCopy" value="true"/>
-        <constructor-arg name="replicateRemovals" value="true"/>
-    </bean>
+    <!--<bean id="ticketRMISynchronousCacheReplicator" class="net.sf.ehcache.distribution.RMISynchronousCacheReplicator">-->
+        <!--<constructor-arg name="replicatePuts" value="true"/>-->
+        <!--<constructor-arg name="replicatePutsViaCopy" value="true"/>-->
+        <!--<constructor-arg name="replicateUpdates" value="true"/>-->
+        <!--<constructor-arg name="replicateUpdatesViaCopy" value="true"/>-->
+        <!--<constructor-arg name="replicateRemovals" value="true"/>-->
+    <!--</bean>-->
 
-    <bean id="ticketRMIAsynchronousCacheReplicator" class="net.sf.ehcache.distribution.RMIAsynchronousCacheReplicator"
-          parent="ticketRMISynchronousCacheReplicator">
-        <constructor-arg name="replicationInterval" value="10000"/>
-        <constructor-arg name="maximumBatchSize" value="100"/>
-    </bean>
-    <bean id="ticketCacheBootstrapCacheLoader" class="net.sf.ehcache.distribution.RMIBootstrapCacheLoader">
-        <constructor-arg name="asynchronous" value="true"/>
-        <constructor-arg name="maximumChunkSize" value="5000000"/>
-    </bean>
+    <!--<bean id="ticketRMIAsynchronousCacheReplicator" class="net.sf.ehcache.distribution.RMIAsynchronousCacheReplicator"-->
+          <!--parent="ticketRMISynchronousCacheReplicator">-->
+        <!--<constructor-arg name="replicationInterval" value="10000"/>-->
+        <!--<constructor-arg name="maximumBatchSize" value="100"/>-->
+    <!--</bean>-->
+    <!--<bean id="ticketCacheBootstrapCacheLoader" class="net.sf.ehcache.distribution.RMIBootstrapCacheLoader">-->
+        <!--<constructor-arg name="asynchronous" value="true"/>-->
+        <!--<constructor-arg name="maximumChunkSize" value="5000000"/>-->
+    <!--</bean>-->
+    <!-- ##################################集群模式 end################################################-->
 </beans>

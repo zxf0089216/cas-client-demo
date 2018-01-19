@@ -9,7 +9,7 @@ import java.util.Enumeration;
 /**
  * 获取当前ip
  *
- * @author zhangxf
+ * @author <a href="mailto:zhangxf21203@hundsun.com">zhangxf</a>
  * @version 1.0
  */
 public class LocalIpUtil {
@@ -17,27 +17,12 @@ public class LocalIpUtil {
 
     private static final String WINDOWS = "WINDOWS";
 
-    public static String replaceTrueIpIfLocalhost(String url) {
-        String localIp = getLocalIp();
-
-        if (localIp == null || "".equals(localIp.trim())) {
-            logger.warn("can not get local host,so replace true Ip for Localhost failed!");
-            return url;
-        }
-
-        if (url.contains("localhost") || url.contains("127.0.0.1")) {
-            url = url.replaceAll("localhost", localIp).replaceAll("127.0.0.1", localIp);
-        }
-
-        return url;
-    }
-
     /**
      * 获取本地服务器ID地址
      *
      * @return 本机IP地址
      */
-    private static String getLocalIp() {
+    public static String getLocalIp() {
         String os = System.getProperty("os.name").toUpperCase();
         if (os.contains(WINDOWS)) {
             return getWindowIp();

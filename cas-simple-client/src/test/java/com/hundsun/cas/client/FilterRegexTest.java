@@ -1,6 +1,6 @@
 package com.hundsun.cas.client;
 
-import com.hundsun.cas.client.util.CommonUtils;
+import com.hundsun.cas.client.util.RegexUtils;
 import org.junit.Test;
 
 import java.util.regex.Pattern;
@@ -28,7 +28,7 @@ public class FilterRegexTest {
 //        String test = "1.json";
 //        String test = "/cas/api/v2/11.js";
         String test = "/acm/api/v1/account/888";
-        String regStr = CommonUtils.assemblyRegexStr(filterRegex);
+        String regStr = RegexUtils.assemblyRegexStr(filterRegex);
         System.out.println("正则表达式: "+regStr);
         Pattern pattern = Pattern.compile(regStr);
         if (pattern.matcher(test).matches()) {

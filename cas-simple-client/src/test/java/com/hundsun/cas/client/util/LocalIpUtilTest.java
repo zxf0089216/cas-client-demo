@@ -4,12 +4,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.util.Enumeration;
-
 /**
  * @author <a href="mailto:zhangxf21203@hundsun.com">zhangxf</a>
  * @version 1.0
@@ -32,7 +26,7 @@ public class LocalIpUtilTest {
 //        }
 //        System.out.println(url);
 
-        System.out.println(LocalIpUtil.replaceTrueIpIfLocalhost(url));
+//        System.out.println(LocalIpUtil.replaceTrueIpIfLocalhost(url));
 
     }
 

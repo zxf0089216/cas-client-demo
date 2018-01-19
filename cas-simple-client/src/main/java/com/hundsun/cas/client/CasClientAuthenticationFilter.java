@@ -17,6 +17,7 @@ package com.hundsun.cas.client; /**
  * under the License.
  */
 
+import com.hundsun.cas.client.util.RegexUtils;
 import org.jasig.cas.client.authentication.DefaultGatewayResolverImpl;
 import org.jasig.cas.client.authentication.GatewayResolver;
 import org.jasig.cas.client.util.AbstractCasFilter;
@@ -201,7 +202,7 @@ public class CasClientAuthenticationFilter extends AbstractCasFilter {
 
     public void setExclusions(String exclusions) {
         if (CommonUtils.isNotBlank(exclusions)) {
-            String excludeRegex = com.hundsun.cas.client.util.CommonUtils.assemblyRegexStr(exclusions);
+            String excludeRegex = RegexUtils.assemblyRegexStr(exclusions);
             excludeUriPattern = Pattern.compile(excludeRegex);
         }
     }

@@ -1,6 +1,6 @@
 package com.hundsun.cas.client;
 
-import com.hundsun.cas.client.util.LocalIpUtil;
+import com.hundsun.cas.client.util.ConfigUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,11 +24,11 @@ public class CasClientConfiguration {
     public static void init(ServletContext servletContext) {
         String configFilePath=CONFIG_NAME;
         InputStream is = null;
+        String realPath = servletContext.getRealPath("");
         try {
             is = Thread.currentThread().getContextClassLoader().getResourceAsStream(configFilePath);
             if (is == null) {
                 logger.info("configFilePath[{}] not exist in default classpath", configFilePath);
-                String realPath = servletContext.getRealPath("");
                 configFilePath = realPath + File.separator + "WEB-INF" + File.separator + "conf" + File.separator + CONFIG_NAME;
                 File configFile = new File(configFilePath);
 
@@ -68,8 +68,7 @@ public class CasClientConfiguration {
             config.serverUrl = serverUrlValue;
             logger.debug("Property [cas.server_url] loaded , value is [{}]", config.serverUrl);
         }
-        config.serverUrl = LocalIpUtil.replaceTrueIpIfLocalhost(config.serverUrl);
-
+        config.serverUrl = ConfigUtils.replaceIpAndPort(config.serverUrl,realPath);
 
         String appUrlValue = props.getProperty("cas.app_url");
         if (isEmpty(appUrlValue)) {
@@ -78,7 +77,7 @@ public class CasClientConfiguration {
             config.appUrl = appUrlValue;
             logger.debug("Property [cas.app_url] loaded , value is [{}]", config.appUrl);
         }
-        config.appUrl = LocalIpUtil.replaceTrueIpIfLocalhost(config.appUrl);
+        config.appUrl = ConfigUtils.replaceIpAndPort(config.appUrl,realPath);
 
         String logoutUrlValue = props.getProperty("cas.logout_url");
         if (isEmpty(logoutUrlValue)) {
@@ -87,7 +86,7 @@ public class CasClientConfiguration {
             config.logoutUrl = logoutUrlValue;
             logger.debug("Property [cas.logout_url] loaded , value is [{}]", config.logoutUrl);
         }
-        config.logoutUrl = LocalIpUtil.replaceTrueIpIfLocalhost(config.logoutUrl);
+        config.logoutUrl = ConfigUtils.replaceIpAndPort(config.logoutUrl,realPath);
 
         String filterMappingValue = props.getProperty("cas.filter_mapping");
         if (isEmpty(filterMappingValue)) {

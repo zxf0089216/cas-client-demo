@@ -1,10 +1,12 @@
 package com.hundsun.cas.client.util;
 
 /**
- * @author zhangxf21203
+ *
+ *
+ * @author <a href="mailto:zhangxf21203@hundsun.com">zhangxf</a>
  * @version 1.0
  */
-public class CommonUtils {
+public class RegexUtils {
     private static final String REGEX_SPLIT_CHAR=";";
 
     public static String assemblyRegexStr(String str) {
@@ -24,11 +26,11 @@ public class CommonUtils {
         return str;
     }
 
-    public static String join(Object[] array, String separator) {
+    private static String join(Object[] array, String separator) {
         return array == null ? null : join(array, separator, 0, array.length);
     }
 
-    public static String join(Object[] array, String separator, int startIndex, int endIndex) {
+    private static String join(Object[] array, String separator, int startIndex, int endIndex) {
         if (array == null) {
             return null;
         } else {
