@@ -84,6 +84,7 @@
 		<module>cas-server-webapp</module>
 		<module>cas-client</module>
 		<module>cas-client1</module>
+		<module>cas-client-core</module>
 		<module>cas-simple-client</module>
 		<module>cas-simple-client-test</module>
 	</modules>

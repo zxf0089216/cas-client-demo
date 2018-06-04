@@ -31,7 +31,9 @@ public class ConfigUtils {
             // 如果找不到tomcat配置文件就不替换端口
             File tomcatServerXmlFile = getTomcatServerXmlFile(applicationPath);
             if (!tomcatServerXmlFile.exists()) {
-                logger.info("Cannot find tomcat server.xml,tomcatServerXmlFile->{}", tomcatServerXmlFile);
+//                if (logger.isInfoEnabled()) {
+//                    logger.info("Cannot find tomcat server.xml,tomcatServerXmlFile->{}", tomcatServerXmlFile);
+//                }
                 return url;
             }
 
@@ -67,7 +69,9 @@ public class ConfigUtils {
         String localIp = LocalIpUtil.getLocalIp();
 
         if (localIp == null || "".equals(localIp.trim())) {
-            logger.warn("can not get local host,so replace true Ip for Localhost failed!");
+            if (logger.isWarnEnabled()) {
+                logger.warn("Can not get local host,so replace true Ip for Localhost failed!");
+            }
             return url;
         }
 
@@ -90,7 +94,9 @@ public class ConfigUtils {
         }
 
         if (split2[0].contains(":")) {
-            logger.info("URL has port defined,do not replace port again");
+            if (logger.isInfoEnabled()) {
+                logger.info("URL has port defined,do not replace port again");
+            }
             return oldUrl;
         }
 
@@ -109,7 +115,9 @@ public class ConfigUtils {
             newUrl = newUrl + "/" + split2[i];
         }
 
-        logger.debug("ReplaceUrlPort success,oldUrl->{},newUrl->{}", oldUrl, newUrl);
+        if (logger.isDebugEnabled()) {
+//            logger.debug("ReplaceUrlPort success,oldUrl->{},newUrl->{}", oldUrl, newUrl);
+        }
         return newUrl;
     }
 
