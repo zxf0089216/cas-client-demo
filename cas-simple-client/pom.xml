@@ -55,7 +55,6 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <!--<scope>test</scope>-->
             <version>${log4j.version}</version>
             <exclusions>
                 <exclusion>
@@ -87,6 +86,7 @@
             <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
+
         <!-- CAS -->
         <dependency>
             <groupId>org.jasig.cas.client</groupId>
@@ -176,4 +176,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
