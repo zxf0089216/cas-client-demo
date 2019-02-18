@@ -31,9 +31,7 @@ public class ConfigUtils {
             // 如果找不到tomcat配置文件就不替换端口
             File tomcatServerXmlFile = getTomcatServerXmlFile(applicationPath);
             if (!tomcatServerXmlFile.exists()) {
-//                if (logger.isInfoEnabled()) {
 //                    logger.info("Cannot find tomcat server.xml,tomcatServerXmlFile->{}", tomcatServerXmlFile);
-//                }
                 return url;
             }
 
@@ -115,9 +113,7 @@ public class ConfigUtils {
             newUrl = newUrl + "/" + split2[i];
         }
 
-        if (logger.isDebugEnabled()) {
 //            logger.debug("ReplaceUrlPort success,oldUrl->{},newUrl->{}", oldUrl, newUrl);
-        }
         return newUrl;
     }
 
