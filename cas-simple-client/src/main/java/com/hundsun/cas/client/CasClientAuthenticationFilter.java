@@ -99,16 +99,26 @@ public class CasClientAuthenticationFilter extends AbstractCasFilter {
         }
     }
 
+    @Override
     public void init() {
         super.init();
         CommonUtils.assertNotNull(this.casServerLoginUrl, "casServerLoginUrl cannot be null.");
     }
 
+    @Override
     public final void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse, final FilterChain filterChain) throws IOException, ServletException {
         final HttpServletRequest request = (HttpServletRequest) servletRequest;
         final HttpServletResponse response = (HttpServletResponse) servletResponse;
         final HttpSession session = request.getSession(false);
         final Assertion assertion = session != null ? (Assertion) session.getAttribute(CONST_CAS_ASSERTION) : null;
+
+        // 增加跨域
+        String origin = request.getHeader("Origin");
+        response.setHeader("Access-Control-Allow-Origin", origin);
+        response.setHeader("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE,PUT,PATCH");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type,Content-Length,Authorization,Accept,X-Requested-With,Access-Control");
+        response.setHeader("Access-Control-Allow-Credentials", "POST,GET");
+        response.setHeader("Access-Control-Allow-Credentials", "true");
 
         // 判断是否需要过滤
         if (isExcluded(request)) {
