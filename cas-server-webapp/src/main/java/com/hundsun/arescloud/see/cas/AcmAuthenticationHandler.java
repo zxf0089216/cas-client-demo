@@ -36,6 +36,7 @@ import org.jasig.cas.authentication.principal.UsernamePasswordCredentials;
  */
 public class AcmAuthenticationHandler extends AbstractJdbcUsernamePasswordAuthenticationHandler {
 
+    @Override
     protected final boolean authenticateUsernamePasswordInternal(final UsernamePasswordCredentials credentials) throws AuthenticationException {
         final String username = getPrincipalNameTransformer().transform(credentials.getUsername());
         final String password = credentials.getPassword();

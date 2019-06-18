@@ -58,18 +58,18 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>2.5.1</version>
 					<configuration>
-						<source>1.7</source>
-						<target>1.7</target>
+						<source>1.8</source>
+						<target>1.8</target>
 					</configuration>
 				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-eclipse-plugin</artifactId>
-					<version>2.7</version>
-					<configuration>
-						<wtpversion>2.0</wtpversion>
-					</configuration>
-				</plugin>
+				<!--<plugin>-->
+					<!--<groupId>org.apache.maven.plugins</groupId>-->
+					<!--<artifactId>maven-eclipse-plugin</artifactId>-->
+					<!--<version>2.7</version>-->
+					<!--<configuration>-->
+						<!--<wtpversion>2.0</wtpversion>-->
+					<!--</configuration>-->
+				<!--</plugin>-->
 			</plugins>
 		</pluginManagement>
 	</build>
@@ -80,6 +80,7 @@
 		<module>cas-server-support-jdbc</module>
 		<module>cas-server-support-oauth</module>
 		<module>cas-server-integration-ehcache</module>
+		<module>cas-server-integration-redis</module>
 		<module>cas-server-core</module>
 		<module>cas-server-webapp</module>
 		<module>cas-client</module>

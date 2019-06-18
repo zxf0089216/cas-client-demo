@@ -73,6 +73,7 @@ public class CasClientAuthenticationFilter extends AbstractCasFilter {
 
     private GatewayResolver gatewayStorage = new DefaultGatewayResolverImpl();
 
+    @Override
     protected void initInternal(final FilterConfig filterConfig) throws ServletException {
         if (!isIgnoreInitConfiguration()) {
             super.initInternal(filterConfig);
@@ -111,6 +112,10 @@ public class CasClientAuthenticationFilter extends AbstractCasFilter {
         final HttpServletResponse response = (HttpServletResponse) servletResponse;
         final HttpSession session = request.getSession(false);
         final Assertion assertion = session != null ? (Assertion) session.getAttribute(CONST_CAS_ASSERTION) : null;
+
+        // 设置默认编码
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
 
         // 增加跨域
         String origin = request.getHeader("Origin");

@@ -25,7 +25,25 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
     <!-- ####################################非集群模式 start##############################################-->
-    <bean id="ticketRegistry" class="org.jasig.cas.ticket.registry.DefaultTicketRegistry"/>
+    <!--<bean id="ticketRegistry" class="org.jasig.cas.ticket.registry.DefaultTicketRegistry"/>-->
+
+    <bean id="ticketRegistry" class="org.jasig.cas.ticket.registry.RedisTicketRegistry">
+        <constructor-arg index="0" ref="redisTemplate" />
+
+        <!-- TGT timeout in seconds -->
+        <constructor-arg index="1" value="1800" />
+
+        <!-- ST timeout in seconds -->
+        <constructor-arg index="2" value="300" />
+    </bean>
+    <!-- redis连接池 -->
+    <bean id="jedisConnFactory"
+          class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+          p:hostName="ecs00"
+          p:database="0"
+          p:usePool="true"/>
+    <bean id="redisTemplate" class="org.jasig.cas.ticket.registry.TicketRedisTemplate"
+          p:connectionFactory-ref="jedisConnFactory"/>
 
     <bean id="ticketRegistryCleaner" class="org.jasig.cas.ticket.registry.support.DefaultTicketRegistryCleaner"
           p:ticketRegistry-ref="ticketRegistry"/>

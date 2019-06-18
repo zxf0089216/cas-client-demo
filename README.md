@@ -1,5 +1,7 @@
 h2. What is this project ?
 
+https://github.com/cloudecho/cas-server3
+
 This project *cas-oauth-demo-3.5.x* has been created to test the OAuth support in *CAS server version 3.5.x with x >= 1*. It's composed of two modules :
 - the *cas-oauth-client-demo-3.5.x* module is a CAS server which uses the OAuth client mode : it acts as a client to delegate authentication to Facebook, Twitter... : "https://wiki.jasig.org/display/CASUM/OAuth+client+support+for+CAS+server+version+%3E%3D+3.5.1":https://wiki.jasig.org/display/CASUM/OAuth+client+support+for+CAS+server+version+%3E%3D+3.5.1
 - the *cas-oauth-server-demo-3.5.x* module is a CAS server which uses the OAuth server mode : it plays the role of an OAuth server : "https://wiki.jasig.org/display/CASUM/OAuth+server+support":https://wiki.jasig.org/display/CASUM/OAuth+server+support.

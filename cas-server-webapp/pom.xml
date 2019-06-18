@@ -55,6 +55,18 @@
     </dependency>
 
       <!-- ################# mine start#######################-->
+      <!--<dependency>-->
+          <!--<groupId>com.github.izerui</groupId>-->
+          <!--<artifactId>cas-server-integration-redis</artifactId>-->
+          <!--<version>1.1.1-RELEASE</version>-->
+      <!--</dependency>-->
+
+      <dependency>
+          <groupId>org.jasig.cas</groupId>
+          <artifactId>cas-server-integration-redis</artifactId>
+          <version>3.5.2.1</version>
+      </dependency>
+
       <dependency>
           <groupId>org.jasig.cas</groupId>
           <artifactId>cas-server-support-oauth</artifactId>
@@ -214,51 +226,51 @@
           </webResources>
         </configuration>
       </plugin>
-      <plugin>
-	    <groupId>org.jasig.maven</groupId>
-	    <artifactId>maven-translate-plugin</artifactId>
-	    <version>0.0.1</version>
-	    <executions>
-	        <execution>
-	            <goals>
-	                <goal>check</goal>
-	            </goals>
-	            <phase>process-resources</phase>
-	        </execution>
-	    </executions>
-	    <configuration>
-	        <messagesDirectory>${basedir}/src/main/webapp/WEB-INF/classes/</messagesDirectory>
-	        <mainMessagesFile>messages_en.properties</mainMessagesFile>
-	    </configuration>
-	  </plugin>
+      <!--<plugin>-->
+	    <!--<groupId>org.jasig.maven</groupId>-->
+	    <!--<artifactId>maven-translate-plugin</artifactId>-->
+	    <!--<version>0.0.1</version>-->
+	    <!--<executions>-->
+	        <!--<execution>-->
+	            <!--<goals>-->
+	                <!--<goal>check</goal>-->
+	            <!--</goals>-->
+	            <!--<phase>process-resources</phase>-->
+	        <!--</execution>-->
+	    <!--</executions>-->
+	    <!--<configuration>-->
+	        <!--<messagesDirectory>${basedir}/src/main/webapp/WEB-INF/classes/</messagesDirectory>-->
+	        <!--<mainMessagesFile>messages_en.properties</mainMessagesFile>-->
+	    <!--</configuration>-->
+	  <!--</plugin>-->
     </plugins>
     <pluginManagement>
     	<plugins>
     		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-    		<plugin>
-    			<groupId>org.eclipse.m2e</groupId>
-    			<artifactId>lifecycle-mapping</artifactId>
-    			<version>1.0.0</version>
-    			<configuration>
-    				<lifecycleMappingMetadata>
-    					<pluginExecutions>
-    						<pluginExecution>
-    							<pluginExecutionFilter>
-    								<groupId>org.jasig.maven</groupId>
-    								<artifactId>maven-translate-plugin</artifactId>
-    								<versionRange>[0.0.1,)</versionRange>
-    								<goals>
-    									<goal>check</goal>
-    								</goals>
-    							</pluginExecutionFilter>
-    							<action>
-    								<ignore />
-    							</action>
-    						</pluginExecution>
-    					</pluginExecutions>
-    				</lifecycleMappingMetadata>
-    			</configuration>
-    		</plugin>
+    		<!--<plugin>-->
+    			<!--<groupId>org.eclipse.m2e</groupId>-->
+    			<!--<artifactId>lifecycle-mapping</artifactId>-->
+    			<!--<version>1.0.0</version>-->
+    			<!--<configuration>-->
+    				<!--<lifecycleMappingMetadata>-->
+    					<!--<pluginExecutions>-->
+    						<!--<pluginExecution>-->
+    							<!--<pluginExecutionFilter>-->
+    								<!--<groupId>org.jasig.maven</groupId>-->
+    								<!--<artifactId>maven-translate-plugin</artifactId>-->
+    								<!--<versionRange>[0.0.1,)</versionRange>-->
+    								<!--<goals>-->
+    									<!--<goal>check</goal>-->
+    								<!--</goals>-->
+    							<!--</pluginExecutionFilter>-->
+    							<!--<action>-->
+    								<!--<ignore />-->
+    							<!--</action>-->
+    						<!--</pluginExecution>-->
+    					<!--</pluginExecutions>-->
+    				<!--</lifecycleMappingMetadata>-->
+    			<!--</configuration>-->
+    		<!--</plugin>-->
     	</plugins>
     </pluginManagement>
   </build>
